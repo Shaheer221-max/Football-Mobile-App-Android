@@ -31,7 +31,7 @@ const Comments = ({navigation, route}) => {
   const Nav = navigation;
   const IsGroup = route?.params.item?.refOfGroup;
 
-  const [CommentArray, setCommentArray] = useState(route?.params.item?.Comment);
+  const [CommentArray, setCommentArray] = useState(route?.params?.Comment);
   const {userdetails, setuserdetails} = useContext(CartProvider);
   const [Comment, setComment] = useState();
 
@@ -51,8 +51,9 @@ const Comments = ({navigation, route}) => {
       console.log('Ma na comment kiya');
       console.log(result.data.data.doc);
       const NewCommet = {comment: Comment, refOfUser: userdetails};
+      setCommentArray(CommentArray => [result.data.data.doc, ...CommentArray]);
 
-      setCommentArray(CommentArray => [...CommentArray, result.data.data.doc]);
+      // setCommentArray(CommentArray => [...CommentArray, result.data.data.doc]);
       setComment('');
     } catch (err) {
       console.log(err.response.data);

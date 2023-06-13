@@ -433,7 +433,8 @@ const FlatListForFeed = ({
 
               {/* Image Area */}
               {item?.image ? (
-                item.image.length === 0 ? null : (
+                item?.image.length === 0 ? null : item?.image ===
+                  'false' ? null : (
                   <View style={styles.allViewStyle}>
                     <Image
                       source={{
@@ -513,6 +514,7 @@ const FlatListForFeed = ({
                       navigation.navigate('Comments', {
                         item: item,
                         refOfNewsfeed: item?._id,
+                        Comment: item?.Comment.reverse(),
                       });
                     }}>
                     <FontAwesome

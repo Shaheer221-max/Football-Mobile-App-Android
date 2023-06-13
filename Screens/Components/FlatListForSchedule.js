@@ -65,13 +65,6 @@ const FlatListForSchedule = ({dataArray}) => {
                   />
                   <Text style={Commonstyles.TextWhiteFeed}>{Date}</Text>
                 </View>
-                <TouchableOpacity>
-                  <Entypo
-                    name={'dots-three-horizontal'}
-                    size={23}
-                    color={Font.white}
-                  />
-                </TouchableOpacity>
               </View>
             </View>
           );

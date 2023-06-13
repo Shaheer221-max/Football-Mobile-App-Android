@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
+  ActivityIndicator,
   FlatList,
 } from 'react-native';
 import React, {useState, useEffect, useContext, useRef} from 'react';
@@ -184,9 +185,17 @@ const ChatScreen = ({navigation, route}) => {
     getMessages();
   }, []);
   if (condition) {
-    <View>
-      <Loader />
-    </View>;
+    return (
+      <View
+        style={{
+          backgroundColor: Font.black,
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   } else {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: Font.black}}>

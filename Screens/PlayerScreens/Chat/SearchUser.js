@@ -149,7 +149,10 @@ const SearchUser = ({navigation, route}) => {
           initialNumToRender={10}
           renderItem={({item}) => {
             return (
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                  findConversation(item?._id);
+                }}
                 style={{
                   flexDirection: 'row',
                   marginBottom: 8,
@@ -159,10 +162,7 @@ const SearchUser = ({navigation, route}) => {
                   paddingBottom: 5,
                 }}>
                 <TouchableOpacity
-                  style={{flexDirection: 'row', alignItems: 'center'}}
-                  onPress={() => {
-                    findConversation(item?._id);
-                  }}>
+                  style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Image
                     source={{
                       uri: item?.image,
@@ -206,7 +206,7 @@ const SearchUser = ({navigation, route}) => {
                     </Text>
                   ) : null}
                 </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

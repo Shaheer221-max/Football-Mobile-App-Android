@@ -579,18 +579,34 @@ const MyCart = ({navigation}) => {
               </Text>
             </View>
             <View style={{margin: 15, marginTop: 8}}>
-              <TouchableOpacity
-                style={Commonstyles.ButtonGreen}
-                onPress={() => {
-                  navigation.navigate('Checkout', {
-                    product: cartFromBackend,
-                    TotalCost: TotalBill,
-                    from: 'MyCart',
-                  });
-                  console.log(cartFromBackend);
-                }}>
-                <Text style={Commonstyles.TextWhite}>Checkout</Text>
-              </TouchableOpacity>
+              {cartFromBackend.length === 0 ? (
+                <TouchableOpacity
+                  style={Commonstyles.ButtonGrey}
+                  disabled={true}
+                  onPress={() => {
+                    navigation.navigate('Checkout', {
+                      product: cartFromBackend,
+                      TotalCost: TotalBill,
+                      from: 'MyCart',
+                    });
+                    console.log(cartFromBackend);
+                  }}>
+                  <Text style={Commonstyles.TextWhite}>Checkout</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={Commonstyles.ButtonGreen}
+                  onPress={() => {
+                    navigation.navigate('Checkout', {
+                      product: cartFromBackend,
+                      TotalCost: TotalBill,
+                      from: 'MyCart',
+                    });
+                    console.log(cartFromBackend);
+                  }}>
+                  <Text style={Commonstyles.TextWhite}>Checkout</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>

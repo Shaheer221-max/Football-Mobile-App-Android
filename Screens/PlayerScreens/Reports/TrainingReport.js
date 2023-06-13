@@ -321,7 +321,7 @@ const TrainingReport = ({navigation}) => {
                     justifyContent: 'center',
                   }}>
                   {YourTodayReport.length === 0 ? (
-                    <Text style={Commonstyles.TextGreen24}>NaN</Text>
+                    <Text style={Commonstyles.TextGreen24}>0</Text>
                   ) : (
                     <Text style={Commonstyles.TextGreen24}>{todayAvg}</Text>
                   )}

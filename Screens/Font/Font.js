@@ -342,6 +342,13 @@ const Commonstyles = StyleSheet.create({
     backgroundColor: '#1DB954',
     borderRadius: 10,
   },
+  ButtonGrey: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 23,
+    backgroundColor: 'grey',
+    borderRadius: 10,
+  },
   ButtonBlue: {
     alignItems: 'center',
     justifyContent: 'center',
