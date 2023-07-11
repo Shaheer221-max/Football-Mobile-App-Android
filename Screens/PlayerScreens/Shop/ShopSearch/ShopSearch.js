@@ -192,9 +192,7 @@ const ShopSearch = ({navigation}) => {
       </View>
 
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View>
           {/* Categories */}

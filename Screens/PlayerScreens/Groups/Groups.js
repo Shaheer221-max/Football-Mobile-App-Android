@@ -117,9 +117,7 @@ const Groups = ({navigation}) => {
       </View>
       {/* FlatList for Groups */}
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <FlatListForGroups
           GroupArray={groupArrayFromBackend}

@@ -215,7 +215,7 @@ const SearchUser = ({navigation, route}) => {
                       marginLeft: 10,
                       fontSize: 16,
                       fontWeight: 'bold',
-                      color: Font.TextColor,
+                      color: '#FFFFFF',
                       fontFamily: 'Lexend-Regular',
                     }}>
                     {item.firstname} {item.lastname}

@@ -24,7 +24,7 @@ const CustomDrawer = props => {
       <View
         style={{
           marginLeft: 12,
-          marginTop: 10,
+          marginTop: 50,
           flexDirection: 'row',
           alignItems: 'center',
         }}>

@@ -124,9 +124,7 @@ const IndividualGroup = ({navigation, route}) => {
         </View>
       </View>
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View>
           {/* Group Info */}

@@ -1,16 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import React from 'react';
 import Lottie from 'lottie-react-native';
 
 const Loader = () => {
   return (
-    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-      <Lottie
-        style={{margin: 20, width: '80%', height: '80%', alignSelf: 'center'}}
-        source={require('../../assets/football.json')}
-        autoPlay
-        loop
-      />
+    <View style={{position: "absolute", top: "50%", left: "50%"}}>
+    <ActivityIndicator size="large" />
     </View>
   );
 };

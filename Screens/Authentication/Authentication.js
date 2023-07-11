@@ -54,7 +54,7 @@ const Authentication = () => {
   }, []);
   if (getcondition) {
     <View>
-      <Text>Fetchiang data for you</Text>
+      <Text>Fetching data for you</Text>
     </View>;
   } else {
     return (

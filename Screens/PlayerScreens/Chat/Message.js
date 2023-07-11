@@ -23,10 +23,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Modal from "react-native-modal";
 
 const Message = ({message, own, otherUser}) => {
   const {userdetails, setuserdetails, token, socket} = useContext(CartProvider);
   console.log('-------');
+  const [openImage, setOpenImage] = useState(false);
+  const [imageToShow, setImageToShow] = useState("");
+
 
   if (message?.text.length > 3) {
     var extension = message?.text.substr(message?.text.length - 4);
@@ -38,13 +42,22 @@ const Message = ({message, own, otherUser}) => {
     }
   }
 
+  const closeModal = () => {
+    setOpenImage(false);
+  }
+
+  const handleImagePress = () => {
+    setOpenImage(true);
+    setImageToShow(message?.text ?? "");
+  }
+
   return (
     <View style={{marginTop: 10}}>
       {own ? (
         <View style={{marginLeft: 15, marginBottom: 5, marginTop: 5}}>
           <View style={{flexDirection: 'row'}}>
             <View>
-              <Image
+              <Image         
                 source={{
                   uri: userdetails?.image,
                 }}
@@ -65,6 +78,7 @@ const Message = ({message, own, otherUser}) => {
                 </Text>
               </Text>
               {image ? (
+                <TouchableOpacity onPress={handleImagePress}>
                 <Image
                   source={{
                     uri: message?.text,
@@ -72,10 +86,11 @@ const Message = ({message, own, otherUser}) => {
                   style={{
                     width: 146,
                     height: 146,
-
                     borderRadius: 10,
                   }}
                 />
+                </TouchableOpacity>
+
               ) : (
                 <View
                   style={{
@@ -186,6 +201,26 @@ const Message = ({message, own, otherUser}) => {
           </View>
         </View>
       )}
+
+      <Modal
+       onBackdropPress={closeModal}
+       visible={openImage}
+       style={{justifyContent: 'center' }}>
+      <View
+        style={{
+        height: "50%",
+        justifyContent: 'space-around',
+        alignItems: 'center',
+      }}>
+      <Image 
+       style={{
+        height: 400,
+        width: 400
+       }} 
+       source={{uri: imageToShow}}
+      />
+        </View>
+      </Modal>
     </View>
   );
 };

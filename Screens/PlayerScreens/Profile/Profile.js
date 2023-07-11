@@ -70,6 +70,7 @@ const Profile = ({navigation}) => {
       {/* Top bar */}
       <View
         style={{
+          marginTop: 40,
           height: 90,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
@@ -81,7 +82,6 @@ const Profile = ({navigation}) => {
         <View
           style={{
             flexDirection: 'row',
-
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -397,9 +397,7 @@ const Profile = ({navigation}) => {
       </View>
       {/* FlatList to show the UserPosts */}
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <UserPostList
           FeedArray={feedArrayFromBackend}

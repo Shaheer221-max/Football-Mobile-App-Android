@@ -39,12 +39,12 @@ const FlatListForSchedule = ({dataArray}) => {
               }}>
               <View style={styles.ViewStyle}>
                 <Text style={Commonstyles.TextWhiteMembersName}>
-                  {item?.title}
+                  {item?.title ?? "Title placeholder"}
                 </Text>
               </View>
               <View style={styles.ViewStyle}>
                 <Text numberOfLines={3} style={Commonstyles.TextWhite}>
-                  {item?.description}
+                  {item?.description ?? "Description Placeholder"}
                 </Text>
               </View>
               <View

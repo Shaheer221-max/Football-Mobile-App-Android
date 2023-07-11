@@ -112,9 +112,7 @@ const PlayerNotification = ({navigation}) => {
       </View>
       {/* Waiting for notification */}
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View style={{marginLeft: 15, marginRight: 15}}>
           <FlatList

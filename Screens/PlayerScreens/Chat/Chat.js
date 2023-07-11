@@ -151,9 +151,7 @@ const Chat = ({navigation}) => {
       </View>
 
       {condition ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View>
           {/* Selecting Parent or player chat */}

@@ -135,9 +135,7 @@ const IndividualPost = ({navigation, route}) => {
 
   if (cond) {
     return (
-      <View>
         <Loader />
-      </View>
     );
   } else {
     return (
@@ -211,9 +209,7 @@ const IndividualPost = ({navigation, route}) => {
 
               {/* Flatlist to show groups */}
               {groupArrayToShow.length === 0 ? (
-                <View>
                   <Loader />
-                </View>
               ) : (
                 <FlatList
                   contentContainerStyle={{paddingBottom: 0}}
@@ -332,6 +328,7 @@ const IndividualPost = ({navigation, route}) => {
         {/* Top bar */}
         <View
           style={{
+            marginTop: 20,
             height: 90,
             borderBottomWidth: 0.5,
             borderColor: Font.greyText,
@@ -348,7 +345,7 @@ const IndividualPost = ({navigation, route}) => {
               marginLeft: 15,
             }}>
             <TouchableOpacity
-              style={{marginRight: 5}}
+              style={{marginRight: 15,}}
               onPress={() => {
                 navigation.goBack();
               }}>

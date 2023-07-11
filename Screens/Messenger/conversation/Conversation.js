@@ -11,7 +11,6 @@ import {
 import axios from 'axios';
 import CartProvider from '../../ContextApi/contextApi';
 import port from '../../Port/Port';
-import Loader from '../../Loader/Loader';
 import {Font} from '../../font/Font';
 
 function Conversation({conversation, currentUser, AllUsers}) {

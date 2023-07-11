@@ -286,9 +286,7 @@ const Drills = ({navigation}) => {
 
       {/* Categories */}
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View style={{margin: 15, marginRight: 0, marginTop: 5}}>
           <FlatList

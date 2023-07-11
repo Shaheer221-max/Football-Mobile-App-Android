@@ -64,6 +64,7 @@ const Profile = ({navigation}) => {
       {/* Top bar */}
       <View
         style={{
+          marginTop: 40,
           height: 90,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
@@ -163,9 +164,7 @@ const Profile = ({navigation}) => {
 
       {/* Son ProfileArea */}
       {cond ? (
-        <View style={{marginTop: -130}}>
           <Loader />
-        </View>
       ) : (
         <View style={{margin: 15}}>
           <Text style={Commonstyles?.TextWhite}>Son's Profile</Text>

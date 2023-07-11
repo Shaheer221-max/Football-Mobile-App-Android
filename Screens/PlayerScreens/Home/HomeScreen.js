@@ -38,7 +38,6 @@ const HomeScreen = ({navigation}) => {
       const result = await axios.get(
         `${port.herokuPort}/newsfeed/GetAllNewsFeed`,
       );
-
       setFeedArrayFromBackend(result.data.data);
 
       setCondition(false);
@@ -67,11 +66,12 @@ const HomeScreen = ({navigation}) => {
   }, [isFocused, getDataCondition]);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: Font.black}}>
+    <SafeAreaView style={{ backgroundColor: Font.black}}>
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          minHeight: 70,
+          marginVertical: 10,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -123,9 +123,7 @@ const HomeScreen = ({navigation}) => {
       </View>
       {/* FlatList to show the Feeds */}
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <FlatListForFeed
           FeedArray={feedArrayFromBackend}

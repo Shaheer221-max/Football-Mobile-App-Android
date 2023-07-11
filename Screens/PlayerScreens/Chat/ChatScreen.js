@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   FlatList,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import axios from 'axios';
@@ -260,7 +261,7 @@ const ChatScreen = ({navigation, route}) => {
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'space-between',
-            paddingBottom: 75,
+            paddingBottom: 35,
           }}>
           <View style={{marginTop: 10, flex: 8}}>
             <ScrollView ref={scrollRef}>
@@ -275,13 +276,15 @@ const ChatScreen = ({navigation, route}) => {
               ))}
             </ScrollView>
           </View>
-          {OnlyView === 'No' ? (
-            <View
+        </View>
+        {OnlyView === 'No' ? (
+            <KeyboardAvoidingView
+              behavior='padding'
               style={{
                 justifyContent: 'center',
                 marginLeft: 15,
                 marginRight: 15,
-                fles: 2,
+                marginBottom: 50,
               }}>
               {/* Sending Chat area */}
               <TextInput
@@ -361,9 +364,8 @@ const ChatScreen = ({navigation, route}) => {
                   />
                 </TouchableOpacity>
               </View>
-            </View>
+            </KeyboardAvoidingView>
           ) : null}
-        </View>
       </SafeAreaView>
     );
   }

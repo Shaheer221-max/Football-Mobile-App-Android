@@ -38,7 +38,7 @@ const EditProfile = ({navigation, route}) => {
   const [name, setName] = useState(userdetails?.name);
   const [phone, setPhone] = useState(userdetails?.phone.toString());
   const [height, setHeight] = useState(userdetails?.height);
-  const [DOB, setDOB] = useState(userdetails?.dateOfBirth);
+  const [DOB, setDOB] = useState(DateBirth);
   const [date, setDate] = useState(new Date());
   var [userPhoto, setUserPhoto] = useState(userdetails?.image);
   const [openModal, setOpenModal] = useState(false);
@@ -148,7 +148,7 @@ const EditProfile = ({navigation, route}) => {
         open={openModal}
         date={date}
         onConfirm={date => {
-          setDOB(date);
+          setDOB(date.toLocaleDateString());
 
           setOpenModal(false);
         }}
@@ -446,6 +446,7 @@ const EditProfile = ({navigation, route}) => {
                 <TextInput
                   name="DOB"
                   style={Commonstyles.inputText}
+                  value= {DOB}
                   placeholder={DateBirth ? DateBirth : 'Enter DOB'}
                   placeholderTextColor={Font.greyText}
                   // value={values.email}

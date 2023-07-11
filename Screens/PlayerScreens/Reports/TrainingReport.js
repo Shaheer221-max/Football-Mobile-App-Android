@@ -190,9 +190,7 @@ const TrainingReport = ({navigation}) => {
   }, []);
   if (cond) {
     return (
-      <View>
         <Loader />
-      </View>
     );
   } else {
     return (

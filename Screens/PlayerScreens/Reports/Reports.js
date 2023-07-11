@@ -279,9 +279,7 @@ const Reports = ({navigation}) => {
       </View>
 
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View>
           {Report === 'Attendance' ? (
@@ -381,7 +379,7 @@ const Reports = ({navigation}) => {
                         backgroundColor: Font.blue2,
                       }}
                       dropDownDirection="BOTTOM"
-                      maxHeight={480}
+                      maxHeight={200}
                       containerProps={{
                         style: {
                           height: open
@@ -431,7 +429,7 @@ const Reports = ({navigation}) => {
                   </View>
                 </View>
                 {AttendanceToShow.length > 5 ? (
-                  <View style={{margin: 15}}>
+                  <View style={{marginTop: 65, position: "absolute", left: "5%", width: "90%"}}>
                     <FlatList
                       showsVerticalScrollIndicator={false}
                       data={AttendanceToShow}
@@ -448,7 +446,6 @@ const Reports = ({navigation}) => {
                           <View
                             style={{
                               height: 53,
-
                               marginTop: 10,
                               backgroundColor: Font.grey,
                               borderRadius: 10,
@@ -529,7 +526,7 @@ const Reports = ({navigation}) => {
                     </TouchableOpacity>
                   </View>
                 ) : (
-                  <View style={{margin: 15}}>
+                  <View style={{marginTop: 65, position: "absolute", left: "5%", width: "90%"}}>
                     <FlatList
                       showsVerticalScrollIndicator={false}
                       data={AttendanceToShow}

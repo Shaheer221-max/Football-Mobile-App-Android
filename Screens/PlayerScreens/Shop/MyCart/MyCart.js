@@ -434,9 +434,7 @@ const MyCart = ({navigation}) => {
         </View>
       </View>
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View
           style={{

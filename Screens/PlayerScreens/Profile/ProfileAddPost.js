@@ -258,9 +258,7 @@ const ProfileAddPost = ({navigation, route}) => {
 
             {/* Flatlist to show groups */}
             {groupArrayToShow.length === 0 ? (
-              <View>
                 <Loader />
-              </View>
             ) : (
               <FlatList
                 contentContainerStyle={{paddingBottom: 0}}

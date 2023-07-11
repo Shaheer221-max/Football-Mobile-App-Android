@@ -32,11 +32,15 @@ const Schedule = ({navigation}) => {
   const [historyFromBackend, setHistoryFromBackend] = useState([]);
   const [markedDay, setMarkedDay] = useState({});
 
+
+  const navigateToUpcoming = () => {
+
+   SetSchedule('Upcoming');
+  }
   //Getting schedule from backend
   const getSchedule = async () => {
     try {
       const result = await axios.get(`${port.herokuPort}/event/GetEvents`);
-
       //Marked Days on calender
 
       result.data.data.doc.map(item => {
@@ -225,9 +229,7 @@ const Schedule = ({navigation}) => {
       </View>
 
       {cond ? (
-        <View>
           <Loader />
-        </View>
       ) : (
         <View style={{margin: 15}}>
           {Schedule === 'Upcoming' ? (
@@ -243,6 +245,7 @@ const Schedule = ({navigation}) => {
               ) : (
                 <Calendar
                   markedDates={markedDay}
+                  onDayPress={navigateToUpcoming}
                   enableSwipeMonths={true}
                   hideExtraDays={true}
                   initialDate={yourDate}
