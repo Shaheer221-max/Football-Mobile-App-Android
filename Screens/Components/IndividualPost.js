@@ -8,7 +8,6 @@ import {
   Image,
   ScrollView,
   FlatList,
-  Modal,
 } from 'react-native';
 import React, {useState, useContext, useEffect} from 'react';
 import axios from 'axios';
@@ -27,6 +26,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { Socket } from 'socket.io-client';
+import  Modal from 'react-native-modal';
 
 const IndividualPost = ({navigation, route}) => {
   const refOfNewsfeed = route?.params?.PostDetails?.Comment[0]?.refOfNewsfeed;
@@ -34,6 +35,7 @@ const IndividualPost = ({navigation, route}) => {
   const isFocused = useIsFocused();
 
   const {userdetails, setuserdetails} = useContext(CartProvider);
+  const [selectItem, setSelectItem] = useState(false);
   const [groupModal, setGroupModal] = useState(false);
   const [groupArrayFromBackend, setGroupArrayFromBackend] = useState([]);
   const [groupId, setGroupId] = useState('');
@@ -100,6 +102,11 @@ const IndividualPost = ({navigation, route}) => {
     }
   };
 
+  const closeModal = () => {
+    setGroupModal(false);
+  }
+
+
   //Adding like to a post
   const addLike = async refOfNewsfeed => {
     console.log(refOfNewsfeed);
@@ -135,7 +142,9 @@ const IndividualPost = ({navigation, route}) => {
 
   if (cond) {
     return (
+      <View style={{flex: 1, backgroundColor: Font.black}}>
         <Loader />
+        </View>
     );
   } else {
     return (
@@ -143,29 +152,31 @@ const IndividualPost = ({navigation, route}) => {
         {/* Select group */}
         <Modal
           animationType="slide"
+          onBackdropPress={closeModal}
           transparent={true}
           visible={groupModal}
-          style={{justifyContent: 'flex-end', margin: 0}}
           onRequestClose={() => {
             setGroupModal(!groupModal);
-          }}>
+          }}
+          style={{justifyContent: "center"}}
+          >
           <View
-            style={{
-              // flex: 1,
-              height: 700,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-            }}>
+       style = {{
+        height: "50%",
+        justifyContent: 'space-around',
+        alignItems: 'center',
+      }}
+            >
             <View style={styles.GroupmodalView}>
               <View
-                style={{
-                  margin: 15,
-                  marginBottom: 0,
-                  paddingBottom: 15,
-                  borderBottomWidth: 0.5,
-                  borderColor: 'grey',
-                }}>
+              style={{
+                margin: 15,
+                marginBottom: 0,
+                paddingBottom: 15,
+                borderBottomWidth: 0.5,
+                borderColor: 'grey',
+              }}
+                >
                 <Text style={Commonstyles?.TextWhiteFeatured}>
                   Share in group
                 </Text>
@@ -218,12 +229,12 @@ const IndividualPost = ({navigation, route}) => {
                   data={groupArrayToShow}
                   renderItem={({item, index}) => {
                     const TotalMembers = item?.Members.length;
-
                     return (
                       <View>
                         <TouchableOpacity
                           onPress={() => {
                             setGroupId(item?._id);
+                            setSelectItem((prev) => !prev)
                           }}
                           style={{
                             marginLeft: 15,
@@ -265,13 +276,13 @@ const IndividualPost = ({navigation, route}) => {
                           <View style={{marginRight: 10, alignSelf: 'center'}}>
                             <TouchableOpacity
                               onPress={() => {
-                                setGroupId(item?._id);
+                                // setGroupId(item?._id);
                               }}>
                               <AntDesign
                                 name={'checkcircle'}
                                 size={15}
                                 color={
-                                  item?._id === groupId
+                                  selectItem
                                     ? Font.green
                                     : Font.white
                                 }
@@ -308,10 +319,12 @@ const IndividualPost = ({navigation, route}) => {
                     flexDirection: 'row',
                   }}
                   onPress={() => {
-                    setPostToBeSharedInGroup(
+                    if(selectItem){
+                      setPostToBeSharedInGroup(
                       (PostToBeSharedInGroup.refOfGroup = groupId),
                     );
                     sharePostInGroup();
+                    }
                   }}>
                   <FontAwesome
                     name={'group'}
@@ -664,8 +677,6 @@ const styles = StyleSheet.create({
   },
 
   GroupmodalView: {
-    width: '85%',
-    height: '54%',
     marginBottom: 10,
     borderRadius: 26,
     backgroundColor: Font.grey,

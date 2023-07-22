@@ -33,8 +33,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Reports = ({navigation}) => {
   //get current date
   var date = new Date();
-  let month = date.toLocaleDateString('en-US', {month: 'long'});
-  month = month.substring(0, 3);
   date = moment(date).utc().format('YYYY-MM-DD');
   const TodayDate = date;
 
@@ -49,25 +47,25 @@ const Reports = ({navigation}) => {
   const [Report, SetReport] = useState('Attendance');
   const [totalPresent, setTotalPresent] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
-  const [selectedMonth, SetSelectedMonth] = useState(month);
+  const [selectedMonth, SetSelectedMonth] = useState(1);
   const [AllAttendanceArray, setAllAttendanceArray] = useState([]);
   const [AttendanceToShow, setAttendanceToShow] = useState([]);
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(month);
+  const [value, setValue] = useState("Jan");
   const [items, setItems] = useState([
-    {label: 'Jan', value: 'Jan'},
-    {label: 'Feb', value: 'Feb'},
-    {label: 'Mar', value: 'Mar'},
-    {label: 'Apr', value: 'Apr'},
-    {label: 'May', value: 'May'},
-    {label: 'Jun', value: 'Jun'},
-    {label: 'July', value: 'Jul'},
-    {label: 'Aug', value: 'Aug'},
-    {label: 'Sep', value: 'Sep'},
-    {label: 'Oct', value: 'Oct'},
-    {label: 'Nov', value: 'Nov'},
-    {label: 'Dec', value: 'Dec'},
+    {label: 'Jan', value: 1},
+    {label: 'Feb', value: 2},
+    {label: 'Mar', value: 3},
+    {label: 'Apr', value: 4},
+    {label: 'May', value: 5},
+    {label: 'Jun', value: 6},
+    {label: 'July', value: 7},
+    {label: 'Aug', value: 8},
+    {label: 'Sep', value: 9},
+    {label: 'Oct', value: 10},
+    {label: 'Nov', value: 11},
+    {label: 'Dec', value: 12},
   ]);
 
   //Getting attendence from backend
@@ -78,6 +76,8 @@ const Reports = ({navigation}) => {
       );
       var present = 0;
       var absent = 0;
+
+      // Extract the year, month, and day from the Date object
 
       //we make 2 arrays 1 contain all attendence 2nd contain attendence of selected month
       //setting today Attendence
@@ -107,12 +107,13 @@ const Reports = ({navigation}) => {
           return element !== undefined;
         });
         //to get day name of attendence
-        let date = new Date(data?.date);
-        let day = date.toLocaleDateString('en-US', {weekday: 'long'});
-        let month = date.toLocaleDateString('en-US', {month: 'long'});
-        month = month.substring(0, 3);
+        let currentDate = new Date(data?.date);
+        const year = currentDate.getUTCFullYear();
+        const month = (currentDate.getUTCMonth() + 1); // Months are zero-indexed, so we add 1
+        const day = currentDate.getUTCDate().toString().padStart(2, '0');
+        
 
-        return {attendence: isPresent[0], date: day, month: month};
+        return {attendence: isPresent[0], date: day, month: month, year: year};
       });
 
       //because we want to show only 6 attence on main page
@@ -140,6 +141,7 @@ const Reports = ({navigation}) => {
       if (currentMonthAttendence.length > 7) {
         setAttendanceToShow(currentMonthAttendence.slice(0, 6));
       } else {
+
         setAttendanceToShow(currentMonthAttendence);
       }
 
@@ -184,6 +186,7 @@ const Reports = ({navigation}) => {
       {/* Top bar */}
       <View
         style={{
+          marginTop: 40,
           height: 90,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
@@ -391,7 +394,7 @@ const Reports = ({navigation}) => {
                           borderRadius: 5,
                         },
                       }}
-                      placeholder={selectedMonth}
+                      placeholder={"Jan"}
                       // disableBorderRadius={true}
                       autoScroll={true}
                       showArrowIcon={true}
@@ -422,7 +425,7 @@ const Reports = ({navigation}) => {
                             currentMonthAttendence.slice(0, 6),
                           );
                         } else {
-                          setAttendanceToShow(currentMonthAttendence);
+                          setAttendanceToShow(currentMonthAttendence);                          
                         }
                       }}
                     />
@@ -435,12 +438,10 @@ const Reports = ({navigation}) => {
                       data={AttendanceToShow}
                       renderItem={({item, index}) => {
                         //Getting day,month,year and datename
-                        let [first, ...rest] = item?.date.split(',');
-                        var year = item?.date.substr(item?.date.length - 4);
-                        var day = item?.date.substr(item?.date.length - 7, 2);
-                        if (day.charAt(0) === '/') {
-                          day = 0 + day.charAt(1);
-                        }
+                        var day = item.date;
+                        var month = item.month;
+                        month = items[month-1].label;
+                        var year = item.year;
 
                         return (
                           <View
@@ -470,9 +471,7 @@ const Reports = ({navigation}) => {
                                 </Text>
                                 <View style={{marginLeft: 15}}>
                                   <Text style={Commonstyles.TextGreysmall300}>
-                                    {first}
-                                    {'\n'}
-                                    {item?.month}, {year}
+                                    {month}, {year}
                                   </Text>
                                 </View>
                               </View>
@@ -530,18 +529,16 @@ const Reports = ({navigation}) => {
                     <FlatList
                       showsVerticalScrollIndicator={false}
                       data={AttendanceToShow}
-                      renderItem={({item, index}) => {
-                        let [first, ...rest] = item?.date.split(',');
-                        var year = item?.date.substr(item?.date.length - 4);
-                        var day = item?.date.substr(item?.date.length - 7, 2);
-                        if (day.charAt(0) === '/') {
-                          day = 0 + day.charAt(1);
-                        }
+                      renderItem={({item, index}) => {                  
+                        var day = item.date;
+                        var month = item.month;
+                        month = items[month-1].label;
+                        var year = item.year;
+
                         return (
                           <View
                             style={{
                               height: 53,
-
                               marginTop: 10,
                               backgroundColor: Font.grey,
                               borderRadius: 10,
@@ -566,9 +563,7 @@ const Reports = ({navigation}) => {
                                 </Text>
                                 <View style={{marginLeft: 15}}>
                                   <Text style={Commonstyles.TextGreysmall300}>
-                                    {first}
-                                    {'\n'}
-                                    {item?.month}, {year}
+                                    {month}, {year}
                                   </Text>
                                 </View>
                               </View>

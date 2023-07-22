@@ -42,7 +42,6 @@ const Schedule = ({navigation}) => {
     try {
       const result = await axios.get(`${port.herokuPort}/event/GetEvents`);
       //Marked Days on calender
-
       result.data.data.doc.map(item => {
         if (item.offDay) {
           setMarkedDay(existingValues => ({
@@ -72,7 +71,7 @@ const Schedule = ({navigation}) => {
           return val;
         }
       });
-
+      
       setUpcomingFromBackend(upcoming.reverse());
       const history = result.data.data.doc.filter(val => {
         var today = new Date();

@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   FlatList,
   KeyboardAvoidingView,
+  Keyboard
 } from 'react-native';
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import axios from 'axios';
@@ -47,6 +48,27 @@ const ChatScreen = ({navigation, route}) => {
   const [condition, setcondition] = useState(true);
   const [condition2, setcondition2] = useState(true);
   const [image, setImage] = useState('');
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+ useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   //Uploading Photo to cloudnary
   const handleUploadFront = async image => {
@@ -287,8 +309,20 @@ const ChatScreen = ({navigation, route}) => {
                 marginBottom: 50,
               }}>
               {/* Sending Chat area */}
+              <View style={{
+               flexDirection: 'row',
+               padding: 18,
+               backgroundColor: '#212121',
+               borderRadius: 10,
+               marginBottom: isKeyboardVisible ? 20 : 0
+              }}>
               <TextInput
-                style={Commonstyles.inputText}
+                style={{
+                  backgroundColor: '#212121',
+                  color: '#FFFFFF',
+                  width: "60%",
+  }       
+                }
                 placeholder="Send Message"
                 placeholderTextColor={Font.greyText}
                 value={
@@ -298,10 +332,12 @@ const ChatScreen = ({navigation, route}) => {
                 }
                 onChangeText={setSingleMessage}
               />
-              <View
+
+               <View
                 style={{
                   position: 'absolute',
                   right: 10,
+                  top: 15,
                   flexDirection: 'row',
                 }}>
                 <TouchableOpacity
@@ -364,6 +400,10 @@ const ChatScreen = ({navigation, route}) => {
                   />
                 </TouchableOpacity>
               </View>
+
+              </View>
+ 
+
             </KeyboardAvoidingView>
           ) : null}
       </SafeAreaView>

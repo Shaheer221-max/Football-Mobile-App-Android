@@ -36,6 +36,7 @@ const FlatListForFeed = ({
   getDataCondition,
   role,
 }) => {
+  const [selectItem, setSelectItem] = useState(false);
   const {userdetails, setuserdetails} = useContext(CartProvider);
   const [groupModal, setGroupModal] = useState(false);
   const [groupArrayFromBackend, setGroupArrayFromBackend] = useState([]);
@@ -193,7 +194,8 @@ const FlatListForFeed = ({
                 paddingBottom: 15,
                 borderBottomWidth: 0.5,
                 borderColor: 'grey',
-              }}>
+              }}
+              >
               <Text style={Commonstyles?.TextWhiteFeatured}>
                 Share in group
               </Text>
@@ -257,6 +259,7 @@ const FlatListForFeed = ({
                 <View>
                   <TouchableOpacity
                     onPress={() => {
+                      setSelectItem((prev) => !prev)
                       setGroupId(item?._id);
                     }}
                     style={{
@@ -299,13 +302,13 @@ const FlatListForFeed = ({
                     <View style={{marginRight: 10, alignSelf: 'center'}}>
                       <TouchableOpacity
                         onPress={() => {
-                          setGroupId(item?._id);
+                          // setGroupId(item?._id);
                         }}>
                         <AntDesign
                           name={'checkcircle'}
                           size={15}
                           color={
-                            item?._id === groupId ? Font.green : Font.white
+                            selectItem ? Font.green : Font.white
                           }
                         />
                       </TouchableOpacity>
