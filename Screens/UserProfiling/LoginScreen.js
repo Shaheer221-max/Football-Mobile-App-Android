@@ -235,7 +235,7 @@ const LoginScreen = ({navigation, route}) => {
                       {errors.password}
                     </Text>
                   )}
-                  <View style={{marginTop: 10, alignItems: 'flex-end'}}>
+                  {/* <View style={{marginTop: 10, alignItems: 'flex-end'}}>
                     <TouchableOpacity
                       onPress={() => {
                         alert('Coming Soon');
@@ -244,7 +244,7 @@ const LoginScreen = ({navigation, route}) => {
                         Forgot password?
                       </Text>
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                   {/* Buttons */}
                   <View style={{marginTop: 20}}>
                     <TouchableOpacity
