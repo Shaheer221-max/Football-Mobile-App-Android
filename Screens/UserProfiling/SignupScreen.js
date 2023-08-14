@@ -43,9 +43,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //Import FontColor
 import {Font, Commonstyles} from '../Font/Font';
+import Loader from '../Loader/Loader';
 
 const SignupScreen = ({navigation, route}) => {
-  const User = route.params?.user;
+  const User = route.params?.user;  
+  const [loading, setLoading] = useState(false);
 
   const [notShowPassword, SetnotShowPassword] = useState(true);
   const [notShowConfirmPassword, SetnotShowConfirmPassword] = useState(true);
@@ -75,7 +77,7 @@ const SignupScreen = ({navigation, route}) => {
         .email('Please enter valid email'),
       password: Yup.string()
         .required('Password is Required')
-        .min(6, 'Password Should be greater than 6 letters'),
+        .min(8, 'Password Should be greater than 8 letters'),
       confirmPassword: Yup.string().oneOf(
         [Yup.ref('password'), null],
         'Passwords must match',
@@ -96,7 +98,7 @@ const SignupScreen = ({navigation, route}) => {
 
       password: Yup.string()
         .required('Password is Required')
-        .min(6, 'Password Should be greater than 6 letters'),
+        .min(8, 'Password Should be greater than 8 letters'),
       confirmPassword: Yup.string().oneOf(
         [Yup.ref('password'), null],
         'Passwords must match',
@@ -116,7 +118,6 @@ const SignupScreen = ({navigation, route}) => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -134,14 +135,11 @@ const SignupScreen = ({navigation, route}) => {
   const openImagePicker = () => {
     ImagePicker.openPicker({
       multiple: false,
-      cropping: true,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
       mediaType: 'photo',
-      includeBase64: true,
     })
       .then(response => {
         let imageList = {
@@ -164,6 +162,7 @@ const SignupScreen = ({navigation, route}) => {
 
   //Same axios call sa signup bhi ho raha or admin ko call bhi ja rahi ha
   const handleSignUp = async data => {
+    setLoading(true);
     if (User === 'Parent') {
       if (Gender === '') {
         alert('Select Gender');
@@ -193,13 +192,15 @@ const SignupScreen = ({navigation, route}) => {
             await AsyncStorage.setItem('@token', jsonValue);
             console.log(result.data.data.newUser);
             setuserdetails(result.data.data.newUser);
+            setLoading(false)
             setToken(result.data.token);
           } catch (e) {
             console.log(e.response);
           }
         } catch (err) {
           console.log(err.response.data.message);
-          alert(err.response.data.message);
+          alert("This email is already registered, Please use different email");
+          setLoading(false)
         }
       }
     } else {
@@ -225,9 +226,11 @@ const SignupScreen = ({navigation, route}) => {
           );
           console.log(result?.data);
           setcartModalVisible(true);
+          setLoading(false)
         } catch (err) {
           console.log(err.response.data.message);
           alert(err.response.data.message);
+          setLoading(false)
         }
       }
     }
@@ -448,7 +451,8 @@ const SignupScreen = ({navigation, route}) => {
                 placeholderTextColor={Font.greyText}
                 onChangeText={handleChange('email')}
                 keyboardType="email-address"
-              />
+                autoCapitalize= "none"
+               />
               <MaterialCommunityIcons
                 name={'email'}
                 size={26}
@@ -478,6 +482,7 @@ const SignupScreen = ({navigation, route}) => {
                     placeholderTextColor={Font.greyText}
                     onChangeText={handleChange('Childemail')}
                     keyboardType="email-address"
+                    autoCapitalize= "none"
                   />
                   <MaterialCommunityIcons
                     name={'email'}
@@ -551,7 +556,7 @@ const SignupScreen = ({navigation, route}) => {
                   }}
                   containerStyle={{
                     width: '100%',
-                    height: 80,
+                    height: open2 ? 60 * (items2.length + 1) : 80,
                   }}
                   maxHeight={80}
                   placeholder="Gender"
@@ -619,7 +624,7 @@ const SignupScreen = ({navigation, route}) => {
                   isValid ? Commonstyles.ButtonGreen : Commonstyles.ButtonGrey
                 }
                 onPress={handleSubmit}>
-                <Text style={Commonstyles.TextWhite}>Register</Text>
+                 {loading == true ? <Loader/> : <Text style={Commonstyles.TextWhite}>Register</Text>}
               </TouchableOpacity>
             </SafeAreaView>
           </>

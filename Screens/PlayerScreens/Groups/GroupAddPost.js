@@ -67,7 +67,6 @@ const GroupAddPost = ({navigation, route}) => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -87,14 +86,11 @@ const GroupAddPost = ({navigation, route}) => {
   const openImagePicker = () => {
     ImagePicker.openPicker({
       multiple: false,
-      cropping: true,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
       mediaType: 'photo',
-      includeBase64: true,
     })
       .then(response => {
         let imageList = {

@@ -41,18 +41,21 @@ const Chat = ({navigation}) => {
   const [allUsers, setAllusers] = useState([]);
   const [condition, setCondition] = useState(true);
   const [groupconversation, setGroupConversation] = useState([]);
-
   //getting all conversations and users
 
   const getConversation = async () => {
     try {
+      let data = [];
       const result = await axios.get(`${port.herokuPort}/users/allUsers`);
 
-      setAllusers(
-        result.data.data.doc.filter(
-          item => item.role != 'Player' && item.role != 'Parent',
-        ),
-      );
+      if(result?.data?.data?.doc){
+        const users = result.data.data.doc;
+
+        if(users.length > 0) {
+          data = users.filter((item) => item.email != userdetails.email && item.role != "Player" && item.role != "Parent")
+        }
+      }
+      setAllusers(data);
     } catch (err) {
       console.log(err);
       alert(err.response.data);
@@ -70,22 +73,10 @@ const Chat = ({navigation}) => {
     }
 
     try {
-      const result = await axios.get(
-        `${port.herokuPort}/conversation/${userdetails?._id}`,
-      );
-
-      setParentConversation(result.data.data.reverse());
-    } catch (err) {
-      console.log(err);
-      alert('Error');
-    }
-
-    try {
-      const result = await axios.get(
+      const response = await axios.get(
         `${port.herokuPort}/groupconversation/GetGroupChat/${userdetails?.refOfPlayer}`,
       );
-
-      setGroupConversation(result.data.data.reverse());
+      setGroupConversation(response.data.data.reverse());
       setCondition(false);
     } catch (err) {
       console.log(err);

@@ -25,7 +25,9 @@ target 'FootballApp' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+  
   target 'FootballAppTests' do
     inherit! :complete
     # Pods for testing

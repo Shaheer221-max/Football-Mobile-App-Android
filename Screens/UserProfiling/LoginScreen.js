@@ -35,10 +35,12 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 //Import FontColor
 import {Font, Commonstyles} from '../Font/Font';
+import Loader from '../Loader/Loader';
 
 const LoginScreen = ({navigation, route}) => {
   const user = route?.params?.user;
   const [notShowPassword, SetnotShowPassword] = useState(true);
+  const [loading, setIsLoading] = useState(false);
   const {userdetails, setuserdetails, setToken} = useContext(CartProvider);
 
   // Checking Validation
@@ -54,6 +56,7 @@ const LoginScreen = ({navigation, route}) => {
   //Handling login
 
   const handleLogin = async (email, password) => {
+    setIsLoading(true);
     const userCredentials = {
       email: email,
       password: password,
@@ -68,6 +71,7 @@ const LoginScreen = ({navigation, route}) => {
       console.log(result?.data);
 
       if (result.data.data.user.active === 'active') {
+
         if (result.data.data.user.role === 'Player') {
           if (user === 'Player') {
             try {
@@ -92,6 +96,7 @@ const LoginScreen = ({navigation, route}) => {
               console.log(result.data.data);
 
               setuserdetails(result.data.data);
+              setIsLoading(false)
             } catch (err) {
               console.log('err.response.data.message');
               console.log(err.response.data.message);
@@ -127,6 +132,7 @@ const LoginScreen = ({navigation, route}) => {
               );
 
               setuserdetails(result.data.data);
+              setIsLoading(false)
             } catch (err) {
               console.log(err);
             }
@@ -141,12 +147,14 @@ const LoginScreen = ({navigation, route}) => {
         alert(
           'Your request is in ' + result?.data?.data?.user?.active + ' state',
         );
+        setIsLoading(false)
       }
     } catch (err) {
       // alert(err.response.data.message);
       console.log('ii crossed this step-----------');
       console.log(err);
       alert('Incorrect email or password :(');
+      setIsLoading(false)
       // setCredentialValidation(err.response.data.message);
     }
   };
@@ -180,6 +188,7 @@ const LoginScreen = ({navigation, route}) => {
                       marginTop: 15,
                     }}>
                     <TextInput
+                      autoCapitalize= "none"
                       name="email"
                       style={Commonstyles.inputText}
                       placeholder="Enter Email"
@@ -255,7 +264,7 @@ const LoginScreen = ({navigation, route}) => {
                           : Commonstyles.ButtonGrey
                       }
                       onPress={handleSubmit}>
-                      <Text style={Commonstyles.TextWhite}>Login</Text>
+                      {loading == true ? <Loader/> : <Text style={Commonstyles.TextWhite}>Login</Text>}
                     </TouchableOpacity>
                   </View>
                 </>
@@ -304,7 +313,7 @@ const styles = StyleSheet.create({
   },
   Logo: {
     height: 70,
-
+    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },

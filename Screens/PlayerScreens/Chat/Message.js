@@ -20,24 +20,24 @@ import moment from 'moment';
 
 //importing icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Entypo from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Modal from "react-native-modal";
 
-const Message = ({message, own, otherUser}) => {
+
+const Message = ({message, own, otherUser}) => {  
   const {userdetails, setuserdetails, token, socket} = useContext(CartProvider);
   console.log('-------');
   const [openImage, setOpenImage] = useState(false);
   const [imageToShow, setImageToShow] = useState("");
-
-
+  var image;
   if (message?.text.length > 3) {
     var extension = message?.text.substr(message?.text.length - 4);
     if (extension.charAt(0) === '.') {
       var extension = message?.text.substr(message?.text.length - 3);
       if (extension === 'jpg' || extension === 'png' || extension === 'gif') {
-        var image = true;
+        image = true;
       }
     }
   }
@@ -54,31 +54,18 @@ const Message = ({message, own, otherUser}) => {
   return (
     <View style={{marginTop: 10}}>
       {own ? (
-        <View style={{marginLeft: 15, marginBottom: 5, marginTop: 5}}>
-          <View style={{flexDirection: 'row'}}>
-            <View>
-              <Image         
-                source={{
-                  uri: userdetails?.image,
-                }}
-                style={{
-                  width: 46,
-                  height: 46,
-
-                  borderRadius: 90 / 2,
-                }}
-              />
-            </View>
-            <View style={{marginLeft: 10, marginRight: 10}}>
-              <Text style={Commonstyles?.TextWhiteUserName}>
-                {userdetails?.name}
+        <View style={{marginRight: 50, marginLeft: 15, marginBottom: 5, marginTop: 5, alignItems: 'flex-end',}}>
+            <View style={{marginLeft: 10, position: "absolute"}}>
+              <Text style={Commonstyles?.TextGrey12}>
+              {moment(message.createdAt).fromNow()}
                 {'   '}
-                <Text style={Commonstyles?.TextGrey12}>
-                  {moment(message.createdAt).fromNow()}
+                <Text style={Commonstyles?.TextWhiteUserName}>
+                Me
                 </Text>
               </Text>
-              {image ? (
-                <TouchableOpacity onPress={handleImagePress}>
+            </View>
+            {image == true ? (
+                <TouchableOpacity style={{marginTop: 27}} onPress={handleImagePress}>
                 <Image
                   source={{
                     uri: message?.text,
@@ -94,44 +81,33 @@ const Message = ({message, own, otherUser}) => {
               ) : (
                 <View
                   style={{
-                    backgroundColor: '#EDEDED',
-                    padding: 9,
-                    width: '80%',
-
-                    borderTopRightRadius: 50,
-                    borderBottomRightRadius: 50,
-                    borderTopLeftRadius: 5,
-                    borderBottomLeftRadius: 50,
-                    marginTop: 7,
+                    backgroundColor: Font.grey,
+                    padding: 13,
+                    borderTopLeftRadius: 40,
+                    borderBottomRightRadius: 20,
+                    borderTopRightRadius: 5,
+                    borderBottomLeftRadius: 20,
+                    marginTop: 27,
                   }}>
                   <Text
                     style={{
-                      fontFamily: 'Lexend-Regular',
-                      fontSize: 13,
-                      fontWeight: '300',
-
-                      color: '#000000',
-                      opacity: 0.72,
+                      textAlign: "center",
+                      color: "white"
                     }}>
                     {message?.text}
                   </Text>
                 </View>
               )}
-            </View>
-          </View>
         </View>
       ) : (
         <View
           style={{
-            alignItems: 'flex-end',
-            marginRight: 15,
-            marginBottom: 5,
-            marginRight: 10,
-            marginTop: 5,
+            marginLeft: 15,
+            marginVertical: 10
           }}>
           <View
             style={{
-              flexDirection: 'row-reverse',
+              flexDirection: 'row', 
             }}>
             <View>
               <Image
@@ -141,26 +117,23 @@ const Message = ({message, own, otherUser}) => {
                 style={{
                   width: 46,
                   height: 46,
-
                   borderRadius: 90 / 2,
                 }}
               />
             </View>
             <View
               style={{
-                marginLeft: 10,
                 marginRight: 10,
-
-                alignItems: 'flex-end',
+                marginLeft: 20
               }}>
-              <Text style={Commonstyles?.TextWhiteUserName}>
-                <Text style={Commonstyles?.TextGrey12}>
-                  {moment(message.createdAt).fromNow()}
+              <Text style={Commonstyles?.TextGrey12}>
+                <Text style={Commonstyles?.TextWhiteUserName}>
+                {otherUser?.name}
                 </Text>
                 {'   '}
-                {otherUser?.name}
+                {moment(message.createdAt).fromNow()}
               </Text>
-              {image ? (
+              {image == true ? (
                 <Image
                   source={{
                     uri: message?.text,
@@ -168,30 +141,26 @@ const Message = ({message, own, otherUser}) => {
                   style={{
                     width: 146,
                     height: 146,
-
+                    marginTop: 10,
                     borderRadius: 10,
                   }}
                 />
               ) : (
                 <View
                   style={{
-                    backgroundColor: Font.grey,
+                    backgroundColor: Font.white,
                     padding: 9,
-                    // width: '80%',
-
-                    borderTopLeftRadius: 50,
-                    borderBottomRightRadius: 50,
-                    borderTopRightRadius: 5,
-                    borderBottomLeftRadius: 50,
+                    width: '80%',
+                    
+                    borderTopRightRadius: 40,
+                    borderBottomLeftRadius: 20,
+                    borderTopLeftRadius: 5,
+                    borderBottomRightRadius: 40,
                     marginTop: 7,
                   }}>
                   <Text
                     style={{
-                      fontFamily: 'Lexend-Regular',
-                      fontSize: 13,
-                      fontWeight: '300',
-
-                      color: 'white',
+                      color: 'black',
                     }}>
                     {message?.text}
                   </Text>
@@ -205,17 +174,30 @@ const Message = ({message, own, otherUser}) => {
       <Modal
        onBackdropPress={closeModal}
        visible={openImage}
-       style={{justifyContent: 'center' }}>
+       style={{alignSelf: 'center',
+        width: "100%", 
+        backgroundColor: "black", 
+        borderRadius: 20,
+        }}>
       <View
         style={{
-        height: "50%",
         justifyContent: 'space-around',
         alignItems: 'center',
+        height: "100%"
       }}>
+      <Icon
+        name= "cross"
+        onPress={closeModal}
+        size={40}
+        color={"grey"}
+        style= {{zIndex: 200, marginRight : 20, marginTop: 60, alignSelf: "flex-end"}}
+      />
+
       <Image 
        style={{
-        height: 400,
-        width: 400
+        height: "110%",
+        width: "100%", 
+        resizeMode: "contain"
        }} 
        source={{uri: imageToShow}}
       />

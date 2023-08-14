@@ -18,7 +18,7 @@ import CartProvider from '../ContextApi/contextApi';
 import Message from './message/Message';
 import Lottie from 'lottie-react-native';
 import port from '../Port/Port';
-import {Font, Commonstyles} from '../font/Font';
+import {Font, Commonstyles} from '../../font/Font';
 
 const ChatScreen = ({navigation, route}) => {
   var currentChat = route.params?.currentChat;

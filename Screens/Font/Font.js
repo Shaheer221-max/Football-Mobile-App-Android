@@ -10,6 +10,18 @@ const Commonstyles = StyleSheet.create({
     marginTop: 5,
     marginBottom: -5,
   },
+  greyText: {
+    color: 'white',
+    paddingTop: 10
+  },
+  inputTextMultiline: {
+    minHeight: 200, 
+    backgroundColor: '#212121',
+    color: '#FFFFFF',
+    borderRadius: 10,
+    padding: 25,
+    paddingTop: 15
+  },
   UploadText: {
     fontFamily: 'Lexend-Regular',
     fontSize: 14,

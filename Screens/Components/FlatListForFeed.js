@@ -308,7 +308,7 @@ const FlatListForFeed = ({
                           name={'checkcircle'}
                           size={15}
                           color={
-                            selectItem ? Font.green : Font.white
+                           item.id == groupId ? Font.green : Font.white
                           }
                         />
                       </TouchableOpacity>
@@ -500,7 +500,7 @@ const FlatListForFeed = ({
             {item.video ? (
               item.video.length === 0 ? null : (
                 <View style={styles.allViewStyle}>
-                  <Video
+                  {/* <Video
                     source={{uri: item?.video}}
                     repeat={true}
                     muted={true}
@@ -516,7 +516,7 @@ const FlatListForFeed = ({
 
                       borderRadius: 8,
                     }}
-                  />
+                  /> */}
                 </View>
               )
             ) : null}

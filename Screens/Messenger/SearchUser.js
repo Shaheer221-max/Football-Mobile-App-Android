@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Font, Commonstyles} from '../font/Font';
+import {Font, Commonstyles} from '../../font/Font';
 import CartProvider from '../ContextApi/contextApi';
 import axios from 'axios';
 import port from '../Port/Port';

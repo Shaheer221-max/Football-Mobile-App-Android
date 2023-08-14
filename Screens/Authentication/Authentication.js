@@ -11,10 +11,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import port from '../Port/Port';
+import useFCM from '../PlayerScreens/Chat/FCM';
 
 const Authentication = () => {
-  const {userdetails, setuserdetails, setToken} = useContext(CartProvider);
+  const {userdetails, setuserdetails, setToken, isFCM, setIsFCM} = useContext(CartProvider);
   const [getcondition, setcondition] = useState(true);
+  useFCM({userdetails, isFCM, setIsFCM});
+  // debugger
+  // useEffect(()=>{
+  //   // const fcm = useFCM();
+  //   debugger
+  // }, [userdetails])
 
   //Check if user is logged in before or not
   const CheckIfUserIsAuthentic = async () => {

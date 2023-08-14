@@ -28,6 +28,7 @@ const DrawerStack = () => {
     <NavigationContainer>
       <Drawer.Navigator
         screenOptions={{
+          unmountOnBlur: true,
           headerShown: false,
           drawerActiveBackgroundColor: Font.green,
           drawerActiveTintColor: Font.white,
@@ -50,6 +51,7 @@ const DrawerStack = () => {
           }}
         />
         <Drawer.Screen
+          
           name="Groups"
           component={GroupStackNavigation}
           options={{
@@ -73,15 +75,6 @@ const DrawerStack = () => {
           options={{
             drawerIcon: () => (
               <FontAwesome name="calendar" size={28} color={'white'} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Go to Shop"
-          component={TabNavigationForEcommerce}
-          options={{
-            drawerIcon: () => (
-              <FontAwesome name="shopping-bag" size={28} color={'white'} />
             ),
           }}
         />

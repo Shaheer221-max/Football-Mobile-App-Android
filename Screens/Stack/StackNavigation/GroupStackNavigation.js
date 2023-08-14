@@ -17,6 +17,7 @@ const Stack = createNativeStackNavigator();
 const GroupStackNavigation = () => {
   return (
     <Stack.Navigator
+      initialRouteName='GroupList'
       screenOptions={{
         headerShown: false,
       }}>

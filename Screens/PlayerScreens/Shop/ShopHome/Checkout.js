@@ -85,7 +85,7 @@ const Checkout = ({navigation, route}) => {
     };
 
     //Send money to admin ammount
-    try {
+    try {      
       const result = await axios.post(
         `${port.herokuPort}/item/PayPayment`,
         cardData,
@@ -398,7 +398,7 @@ const Checkout = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -411,6 +411,7 @@ const Checkout = ({navigation, route}) => {
             flexDirection: 'row',
             marginLeft: 15,
             alignItems: 'center',
+            marginTop: 40,
           }}>
           <TouchableOpacity
             style={{marginRight: 5}}
@@ -431,7 +432,7 @@ const Checkout = ({navigation, route}) => {
             justifyContent: 'center',
             marginRight: 15,
             flexDirection: 'row',
-
+            marginTop: 40,
             alignItems: 'center',
           }}>
           <TouchableOpacity

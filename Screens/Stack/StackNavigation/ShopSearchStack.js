@@ -8,6 +8,8 @@ const Stack = createNativeStackNavigator();
 //Importing Screens
 import ShopSearch from '../../PlayerScreens/Shop/ShopSearch/ShopSearch';
 import PlayerNotification from '../../Components/PlayerNotification';
+import SingleProduct from '../../PlayerScreens/Shop/ShopHome/SingleProduct';
+import Checkout from '../../PlayerScreens/Shop/ShopHome/Checkout';
 
 const ShopSearchStack = () => {
   return (
@@ -16,6 +18,8 @@ const ShopSearchStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="ShopSearch" component={ShopSearch} />
+      <Stack.Screen name="Checkout" component={Checkout}/>
+      <Stack.Screen name="SingleProduct" component={SingleProduct} />
       <Stack.Screen name="PlayerNotification" component={PlayerNotification} />
     </Stack.Navigator>
   );

@@ -71,7 +71,7 @@ const Comments = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -82,7 +82,7 @@ const Comments = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-
+            paddingTop: 20,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -104,6 +104,7 @@ const Comments = ({navigation, route}) => {
           style={{
             justifyContent: 'center',
             marginRight: 15,
+            paddingTop: 20,
           }}>
           <TouchableOpacity
             onPress={() => {

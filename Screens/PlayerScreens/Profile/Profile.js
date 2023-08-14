@@ -341,7 +341,7 @@ const Profile = ({navigation}) => {
               width: '90%',
               marginRight: 15,
             }}>
-            <View pointerEvents="none">
+            {/* <View pointerEvents="none">
               <TextInput
                 name="password"
                 secureTextEntry={true}
@@ -349,7 +349,7 @@ const Profile = ({navigation}) => {
                 placeholder="Post Something"
                 placeholderTextColor={Font.TextGrey}
               />
-            </View>
+            </View> */}
           </TouchableOpacity>
         </View>
         <View
@@ -396,7 +396,7 @@ const Profile = ({navigation}) => {
         </View>
       </View>
       {/* FlatList to show the UserPosts */}
-      {cond ? (
+      {/* {cond ? (
           <Loader />
       ) : (
         <UserPostList
@@ -405,7 +405,7 @@ const Profile = ({navigation}) => {
           getDataCondition={getDataCondition}
           navigation={Nav}
         />
-      )}
+      )} */}
     </ScrollView>
   );
 };

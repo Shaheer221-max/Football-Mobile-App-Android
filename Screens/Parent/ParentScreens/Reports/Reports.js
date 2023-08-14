@@ -32,9 +32,14 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 const Reports = ({navigation}) => {
   //get current date
-  let date = new Date();
+  var date = new Date();
+  let monthName = date.toLocaleDateString('en-US', {month: 'long'});
+  monthName = monthName.substring(0, 3);
   date = moment(date).utc().format('YYYY-MM-DD');
+
   const TodayDate = date;
+
+  console.log('THE DATEEEEEEE', date);
 
   const Nav = navigation;
   const {userdetails, setuserdetails} = useContext(CartProvider);
@@ -46,6 +51,7 @@ const Reports = ({navigation}) => {
   const [totalPresent, setTotalPresent] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
   const [selectedMonth, SetSelectedMonth] = useState(1);
+  const [selectedMonthName, setSelecetedMonthName] = useState(monthName);
   const [AllAttendanceArray, setAllAttendanceArray] = useState([]);
   const [AttendanceToShow, setAttendanceToShow] = useState([]);
 
@@ -391,7 +397,7 @@ const Reports = ({navigation}) => {
                           borderRadius: 5,
                         },
                       }}
-                      placeholder={"Jan"}
+                      placeholder={selectedMonthName}
                       // disableBorderRadius={true}
                       autoScroll={true}
                       showArrowIcon={true}

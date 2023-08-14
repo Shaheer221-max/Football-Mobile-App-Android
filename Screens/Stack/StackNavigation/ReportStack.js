@@ -13,6 +13,7 @@ import PlayerNotification from '../../Components/PlayerNotification';
 const ReportStack = () => {
   return (
     <Stack.Navigator
+      initialRouteName='ReportsList'
       screenOptions={{
         headerShown: false,
       }}>

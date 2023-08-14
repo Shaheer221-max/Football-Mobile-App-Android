@@ -178,7 +178,7 @@ const IndividualPost = ({navigation, route}) => {
               }}
                 >
                 <Text style={Commonstyles?.TextWhiteFeatured}>
-                  Share in group
+               Share in group   
                 </Text>
               </View>
 
@@ -410,7 +410,7 @@ const IndividualPost = ({navigation, route}) => {
               marginRight: 15,
               marginTop: 15,
             }}>
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: "center"}}>
               <Image
                 source={{
                   uri: NewsFeedArrayFromBackend?.refOfUser?.image,
@@ -424,10 +424,6 @@ const IndividualPost = ({navigation, route}) => {
               />
               <View style={{marginLeft: 10}}>
                 <Text style={Commonstyles.TextGreysmallEmail}>
-                  {NewsFeedArrayFromBackend?.refOfUser?.email}
-                  {'  '}
-
-                  {'\n'}
                   <View
                     style={{
                       flexDirection: 'row',
@@ -445,6 +441,7 @@ const IndividualPost = ({navigation, route}) => {
                         height: 5,
                         borderRadius: 90 / 2,
                         marginLeft: 10,
+                        marginRight: 10,
                         backgroundColor: NewsFeedArrayFromBackend?.refOfUser
                           ?.isLoggedIn
                           ? 'green'
@@ -475,13 +472,6 @@ const IndividualPost = ({navigation, route}) => {
             </View>
 
             <View style={{justifyContent: 'center'}}>
-              <TouchableOpacity>
-                <Entypo
-                  name={'dots-three-horizontal'}
-                  size={28}
-                  color={Font.white}
-                />
-              </TouchableOpacity>
             </View>
           </View>
           {/* Status area */}

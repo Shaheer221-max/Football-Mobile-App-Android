@@ -48,7 +48,7 @@ const SonProfile = ({navigation, route}) => {
   const getNewsFeed = async () => {
     try {
       const result = await axios.get(
-        `${port.herokuPort}/newsfeed/GetAllNewsFeed`,
+        `${port.herokuPort}/newsfeed/GetGroupNewsFeedforPlayer/${userdetails?.id}`,
       );
 
       setFeedArrayFromBackend(result.data.data);
@@ -68,7 +68,7 @@ const SonProfile = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 110,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -79,7 +79,7 @@ const SonProfile = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-
+            marginTop: 40,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -94,13 +94,14 @@ const SonProfile = ({navigation, route}) => {
               color={Font.green}
             />
           </TouchableOpacity>
-          <Text style={Commonstyles.LogoWhite}>My Profile</Text>
+          <Text style={Commonstyles.LogoWhite}>Son's Profile</Text>
         </View>
         {/* Notification icon */}
         <View
           style={{
             justifyContent: 'center',
             marginRight: 15,
+            marginTop: 40
           }}>
           <TouchableOpacity
             onPress={() => {

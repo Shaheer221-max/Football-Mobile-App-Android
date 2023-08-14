@@ -156,12 +156,12 @@ const SearchUser = ({navigation, route}) => {
                 style={{
                   flexDirection: 'row',
                   marginBottom: 8,
-
+                  width: "100%",
                   borderBottomWidth: 0.5,
                   borderColor: 'grey',
                   paddingBottom: 5,
                 }}>
-                <TouchableOpacity
+                <View
                   style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Image
                     source={{
@@ -205,7 +205,7 @@ const SearchUser = ({navigation, route}) => {
                       {item?.role}
                     </Text>
                   ) : null}
-                </TouchableOpacity>
+                </View>
               </TouchableOpacity>
             );
           }}

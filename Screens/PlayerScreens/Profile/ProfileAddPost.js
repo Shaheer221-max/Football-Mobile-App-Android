@@ -74,7 +74,6 @@ const ProfileAddPost = ({navigation, route}) => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -94,14 +93,11 @@ const ProfileAddPost = ({navigation, route}) => {
   const openImagePicker = () => {
     ImagePicker.openPicker({
       multiple: false,
-      cropping: true,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
       mediaType: 'photo',
-      includeBase64: true,
     })
       .then(response => {
         let imageList = {
@@ -369,7 +365,7 @@ const ProfileAddPost = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -380,7 +376,7 @@ const ProfileAddPost = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-
+            marginTop: 40,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -412,6 +408,7 @@ const ProfileAddPost = ({navigation, route}) => {
               borderRadius: 3,
               alignItems: 'center',
               justifyContent: 'center',
+              marginTop: 40
             }}
             onPress={() => {
               PostNewsFeed();

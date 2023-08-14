@@ -12,6 +12,7 @@ import ChangeEmail from '../../PlayerScreens/Setting/ChangeEmail';
 import ChangePassword from '../../PlayerScreens/Setting/ChangePassword';
 import ChangeNumber from '../../PlayerScreens/Setting/ChangeNumber';
 import PlayerNotification from '../../Components/PlayerNotification';
+import ProvideFeedBackScreen from '../../PlayerScreens/Setting/ProvideFeedback';
 
 const ShopSettingStack = () => {
   return (
@@ -21,6 +22,7 @@ const ShopSettingStack = () => {
       }}>
       <Stack.Screen name="ShopSettingList" component={SettingList} />
       <Stack.Screen name="ChangeEmail" component={ChangeEmail} />
+      <Stack.Screen name="ProvideFeedback" component={ProvideFeedBackScreen} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="ChangeNumber" component={ChangeNumber} />
       <Stack.Screen name="PlayerNotification" component={PlayerNotification} />

@@ -140,20 +140,21 @@ const FlatListForComments = ({navigation, CommentArray, setCommentArray}) => {
                         style={{
                           marginRight: 15,
                         }}>
-                        <TouchableOpacity
+                        <View 
+                        style={{flexDirection: 'row', alignItems: 'center'}}
+                        >
+                          <Entypo
                           onPress={() => {
                             setIndex(index);
                             setIsOpen(!isopen);
                           }}
-                          style={{flexDirection: 'row', alignItems: 'center'}}>
-                          <Entypo
+                          style={{flexDirection: 'row',marginRight: 5, alignItems: 'center'}}
                             name={'reply'}
                             size={12}
                             color={Font.white}
-                            style={{marginRight: 5}}
                           />
                           <Text style={Commonstyles?.TextWhite12}>Reply</Text>
-                        </TouchableOpacity>
+                          </View>
                       </View>
                       <View
                         style={{
@@ -190,20 +191,18 @@ const FlatListForComments = ({navigation, CommentArray, setCommentArray}) => {
                               setComment(comment);
                             }}
                           />
-                          <TouchableOpacity
+                            <MaterialCommunityIcons
+                             style={{
+                              position: 'absolute',
+                              right: 10,
+                            }}
                             onPress={() => {
                               postComment(item?._id, index);
                             }}
-                            style={{
-                              position: 'absolute',
-                              right: 10,
-                            }}>
-                            <MaterialCommunityIcons
                               name={'send'}
                               size={20}
                               color={'white'}
                             />
-                          </TouchableOpacity>
                         </View>
                       </View>
                     ) : null}

@@ -46,11 +46,17 @@ const Chat = ({navigation}) => {
 
   const getConversation = async () => {
     try {
+      let data = [];
       const result = await axios.get(`${port.herokuPort}/users/allUsers`);
 
-      setAllusers(
-        result.data.data.doc.filter(item => item.email != userdetails.email),
-      );
+      if(result?.data?.data?.doc){
+        const users = result.data.data.doc;
+
+        if(users.length > 0) {
+          data = users.filter((item) => item.email != userdetails.email && item.role != "Player" && item.role != "Parent")
+        }
+      }
+      setAllusers(data);
     } catch (err) {
       console.log(err);
       alert(err.response.data);
@@ -68,11 +74,10 @@ const Chat = ({navigation}) => {
     }
 
     try {
-      const result = await axios.get(
+      const response = await axios.get(
         `${port.herokuPort}/groupconversation/GetGroupChat/${userdetails?._id}`,
       );
-
-      setGroupConversation(result.data.data.reverse());
+      setGroupConversation(response.data.data.reverse());
       setCondition(false);
     } catch (err) {
       console.log(err);

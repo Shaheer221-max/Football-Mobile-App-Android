@@ -75,7 +75,6 @@ const ChatScreen = ({navigation, route}) => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -86,20 +85,17 @@ const ChatScreen = ({navigation, route}) => {
         var newUrl = data.url.slice(0, 4) + 's' + data.url.slice(4);
         console.log(newUrl);
         setImage(newUrl);
-      });
+      }).catch((err) => console.log("error in image upload api", err));
   };
   //Image picker to pickimage
   const openImagePicker = () => {
     ImagePicker.openPicker({
       multiple: false,
-      cropping: true,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
       mediaType: 'photo',
-      includeBase64: true,
     })
       .then(response => {
         let imageList = {
@@ -265,16 +261,6 @@ const ChatScreen = ({navigation, route}) => {
               justifyContent: 'center',
               marginRight: 15,
             }}>
-            <TouchableOpacity
-              onPress={() => {
-                alert('Coming Soon');
-              }}>
-              <Entypo
-                name={'dots-three-horizontal'}
-                size={23}
-                color={Font.white}
-              />
-            </TouchableOpacity>
           </View>
         </View>
         {/* Chat and send chat area */}
@@ -320,9 +306,8 @@ const ChatScreen = ({navigation, route}) => {
                 style={{
                   backgroundColor: '#212121',
                   color: '#FFFFFF',
-                  width: "60%",
-  }       
-                }
+                  width: "60%" 
+                  }}
                 placeholder="Send Message"
                 placeholderTextColor={Font.greyText}
                 value={

@@ -6,12 +6,15 @@ export function CartProvider({children}) {
   const [userdetails, setuserdetails] = useState([]);
   const [token, setToken] = useState('');
   const [socket, setsocket] = useState({});
+  const [isFCM, setIsFCM] = useState("");
 
   return (
     <CartContext.Provider
       value={{
         token,
         setToken,
+        isFCM,
+        setIsFCM,
         userdetails,
         setuserdetails,
         socket,

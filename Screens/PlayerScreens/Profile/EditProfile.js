@@ -66,7 +66,6 @@ const EditProfile = ({navigation, route}) => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -84,14 +83,11 @@ const EditProfile = ({navigation, route}) => {
   const openImagePicker = () => {
     ImagePicker.openPicker({
       multiple: false,
-      cropping: true,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
       mediaType: 'photo',
-      includeBase64: true,
     })
       .then(response => {
         let imageList = {
@@ -159,7 +155,7 @@ const EditProfile = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -169,8 +165,8 @@ const EditProfile = ({navigation, route}) => {
         {/* Drawer Button and heading */}
         <View
           style={{
+            marginTop: 20,
             flexDirection: 'row',
-
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -193,6 +189,7 @@ const EditProfile = ({navigation, route}) => {
         {/* Notification icon */}
         <View
           style={{
+            marginTop: 20,
             justifyContent: 'center',
             marginRight: 15,
           }}>

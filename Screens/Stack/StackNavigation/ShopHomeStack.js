@@ -18,6 +18,7 @@ const ShopHomeStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="ShopHomeList" component={ShopHome} />
+      
       <Stack.Screen name="SingleProduct" component={SingleProduct} />
       <Stack.Screen name="Checkout" component={Checkout} />
       <Stack.Screen name="PlayerNotification" component={PlayerNotification} />

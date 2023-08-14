@@ -29,8 +29,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const TrainingReport = ({navigation}) => {
   //Today date and current Month
   let date = new Date();
-  let month = date.toLocaleDateString('en-US', {month: 'long'});
-  month = month.substring(0, 3);
+
+  let monthName = date.toLocaleDateString('en-US', {month: 'long'});
+  monthName = monthName.substring(0, 3);
   var todayDate = moment(date).utc().format('YYYY-MM-DD');
   date = date.toDateString();
   console.log(date);
@@ -44,25 +45,26 @@ const TrainingReport = ({navigation}) => {
   const [Index, setIndex] = useState();
 
   const [todayReport, setTodayReport] = useState('false');
-  const [selectedMonth, SetSelectedMonth] = useState(month);
+  const [selectedMonth, SetSelectedMonth] = useState(1);
+  const [selectedMonthName, setSelecetedMonthName] = useState(monthName);
   const [AllAttendanceArray, setAllAttendanceArray] = useState([]);
   const [AttendanceToShow, setAttendanceToShow] = useState([]);
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(month);
+  const [value, setValue] = useState("Jan");
   const [items, setItems] = useState([
-    {label: 'Jan', value: 'Jan'},
-    {label: 'Feb', value: 'Feb'},
-    {label: 'Mar', value: 'Mar'},
-    {label: 'Apr', value: 'Apr'},
-    {label: 'May', value: 'May'},
-    {label: 'Jun', value: 'Jun'},
-    {label: 'July', value: 'Jul'},
-    {label: 'Aug', value: 'Aug'},
-    {label: 'Sep', value: 'Sep'},
-    {label: 'Oct', value: 'Oct'},
-    {label: 'Nov', value: 'Nov'},
-    {label: 'Dec', value: 'Dec'},
+    {label: 'Jan', value: 1},
+    {label: 'Feb', value: 2},
+    {label: 'Mar', value: 3},
+    {label: 'Apr', value: 4},
+    {label: 'May', value: 5},
+    {label: 'Jun', value: 6},
+    {label: 'July', value: 7},
+    {label: 'Aug', value: 8},
+    {label: 'Sep', value: 9},
+    {label: 'Oct', value: 10},
+    {label: 'Nov', value: 11},
+    {label: 'Dec', value: 12},
   ]);
   const [AttendanceArray, setAttendanceArray] = useState([
     {
@@ -114,7 +116,6 @@ const TrainingReport = ({navigation}) => {
       const result = await axios.get(
         `${port.herokuPort}/evaluation/ViewEvaluationsByDateOfPlayer/${userdetails?._id}&${date}`,
       );
-
       if (result.data.data.length != 0) {
         setYourTodayReport(result.data.data);
         var totalresult = result.data.result;
@@ -135,12 +136,12 @@ const TrainingReport = ({navigation}) => {
         //setting today Attendence
         const AllAttendece = result.data.data.map(data => {
           //to get day name of attendence
-          let date = new Date(data?.date);
-          let day = date.toLocaleDateString('en-US', {weekday: 'long'});
-          let month = date.toLocaleDateString('en-US', {month: 'long'});
-          month = month.substring(0, 3);
+    let currentDate = new Date(data?.date);
+        const year = currentDate.getUTCFullYear();
+        const month = (currentDate.getUTCMonth() + 1); // Months are zero-indexed, so we add 1
+        const day = currentDate.getUTCDate().toString().padStart(2, '0');
 
-          return {avgScore: data.avgScore, date: day, month: month};
+          return {avgScore: data.avgScore, date: day, month: month, year: year};
         });
         //2nd array to get current month evaluation
         var currentMonthAttendence = AllAttendece.map(item => {
@@ -416,7 +417,7 @@ const TrainingReport = ({navigation}) => {
                         borderRadius: 5,
                       },
                     }}
-                    placeholder={selectedMonth}
+                    placeholder={selectedMonthName}
                     // disableBorderRadius={true}
                     autoScroll={true}
                     showArrowIcon={true}
@@ -458,12 +459,11 @@ const TrainingReport = ({navigation}) => {
                     data={AttendanceToShow}
                     renderItem={({item, index}) => {
                       //Getting day,month,year and datename
-                      let [first, ...rest] = item?.date.split(',');
-                      var year = item?.date.substr(item?.date.length - 4);
-                      var day = item?.date.substr(item?.date.length - 7, 2);
-                      if (day.charAt(0) === '/') {
-                        day = 0 + day.charAt(1);
-                      }
+                      var day = item.date;
+                        var month = item.month;
+                        month = items[month-1].label;
+                        var year = item.year;
+
                       return (
                         <View
                           style={{
@@ -493,9 +493,7 @@ const TrainingReport = ({navigation}) => {
                               </Text>
                               <View style={{marginLeft: 15}}>
                                 <Text style={Commonstyles.TextGreysmall300}>
-                                  {first}
-                                  {'\n'}
-                                  {item?.month}, {year}
+                                {month}, {year}
                                 </Text>
                               </View>
                             </View>
@@ -534,13 +532,11 @@ const TrainingReport = ({navigation}) => {
                     showsVerticalScrollIndicator={false}
                     data={AttendanceToShow}
                     renderItem={({item, index}) => {
-                      //Getting day,month,year and datename
-                      let [first, ...rest] = item?.date.split(',');
-                      var year = item?.date.substr(item?.date.length - 4);
-                      var day = item?.date.substr(item?.date.length - 7, 2);
-                      if (day.charAt(0) === '/') {
-                        day = 0 + day.charAt(1);
-                      }
+                      var day = item.date;
+                        var month = item.month;
+                        month = items[month-1].label;
+                        var year = item.year;
+
                       return (
                         <View
                           style={{
@@ -570,9 +566,7 @@ const TrainingReport = ({navigation}) => {
                               </Text>
                               <View style={{marginLeft: 15}}>
                                 <Text style={Commonstyles.TextGreysmall300}>
-                                  {first}
-                                  {'\n'}
-                                  {item?.month}, {year}
+                                {month}, {year}
                                 </Text>
                               </View>
                             </View>

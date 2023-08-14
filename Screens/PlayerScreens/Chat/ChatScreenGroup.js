@@ -8,6 +8,8 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import axios from 'axios';
@@ -42,15 +44,36 @@ const ChatScreenGroup = ({navigation, route}) => {
   const [lastMessage, setLastMessage] = useState('');
   const [condition, setcondition] = useState(true);
   const [condition2, setcondition2] = useState(true);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   const [image, setImage] = useState('');
+
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   //Uploading Photo to cloudnary
   const handleUploadFront = async image => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -71,10 +94,8 @@ const ChatScreenGroup = ({navigation, route}) => {
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
       mediaType: 'photo',
-      includeBase64: true,
     })
       .then(response => {
         let imageList = {
@@ -151,12 +172,12 @@ const ChatScreenGroup = ({navigation, route}) => {
         </View>
       </View>
       {/* Chat and send chat area */}
+
       <View
         style={{
           flex: 1,
           flexDirection: 'column',
           justifyContent: 'space-between',
-          paddingBottom: 75,
         }}>
         <View style={{marginTop: 10, flex: 8}}>
           <ScrollView ref={scrollRef}>
@@ -167,13 +188,22 @@ const ChatScreenGroup = ({navigation, route}) => {
             ))}
           </ScrollView>
         </View>
-        {userdetails?.role === 'Player' ? (
+      </View>
+      {userdetails?.role === 'Player' ? (
+          <KeyboardAvoidingView
+              behavior='padding'
+              style={{
+                justifyContent: 'center',
+                marginLeft: 15,
+                marginRight: 15,
+                marginBottom: 50,
+              }}>
           <View
             style={{
-              justifyContent: 'center',
-              marginLeft: 15,
-              marginRight: 15,
-              fles: 2,
+              flexDirection: 'row',
+               backgroundColor: '#212121',
+               borderRadius: 10,
+               marginBottom: isKeyboardVisible ? 20 : 0
             }}>
             {/* Sending Chat area */}
 
@@ -193,6 +223,7 @@ const ChatScreenGroup = ({navigation, route}) => {
                 position: 'absolute',
                 right: 10,
                 flexDirection: 'row',
+                marginTop: 15
               }}>
               <TouchableOpacity
                 onPress={() => {
@@ -259,8 +290,8 @@ const ChatScreenGroup = ({navigation, route}) => {
               </TouchableOpacity>
             </View>
           </View>
+          </KeyboardAvoidingView>
         ) : null}
-      </View>
     </SafeAreaView>
   );
   //   }

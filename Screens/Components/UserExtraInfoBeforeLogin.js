@@ -26,9 +26,10 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 //Importing DropDown
 import DropDownPicker from 'react-native-dropdown-picker';
+import useFCM from '../PlayerScreens/Chat/FCM';
 
 const UserExtraInfoBeforeLogin = () => {
-  const {userdetails, setuserdetails} = useContext(CartProvider);
+  const {userdetails, setuserdetails, setIsFCM} = useContext(CartProvider);
   const [height, setHeight] = useState('');
   const [DOB, setDOB] = useState(new Date());
   const [date, setDate] = useState('');
@@ -57,7 +58,6 @@ const UserExtraInfoBeforeLogin = () => {
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'MuhammadTufailAli'),
-      data.append('cloud_name', 'vehiclebuddy');
 
     fetch('https://api.cloudinary.com/v1_1/vehiclebuddy/image/upload', {
       method: 'post',
@@ -75,14 +75,11 @@ const UserExtraInfoBeforeLogin = () => {
   const openImagePicker = () => {
     ImagePicker.openPicker({
       multiple: false,
-      cropping: true,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true,
-      compressImageQuality: 0.8,
       maxFiles: 10,
-      mediaType: 'photo',
-      includeBase64: true,
+      mediaType: 'photo',      
     })
       .then(response => {
         let imageList = {
@@ -146,7 +143,7 @@ const UserExtraInfoBeforeLogin = () => {
         }}
       />
       {/* Top Part */}
-      <View style={{margin: 15}}>
+      <View style={{margin: 15, marginTop: 55}}>
         <View
           style={{flexDirection: 'row', alignItems: 'center', marginBottom: 8}}>
           <FontAwesome
@@ -320,7 +317,7 @@ const UserExtraInfoBeforeLogin = () => {
             }}
             containerProps={{
               style: {
-                height: open ? 20 * (items.length + 1) : 80,
+                height: open ? 60 * (items.length + 1) : 80,
                 width: '100%',
                 borderRadius: 5,
               },
@@ -376,7 +373,8 @@ const UserExtraInfoBeforeLogin = () => {
                 `${port.herokuPort}/users/updateUser/${userdetails?.id}`,
                 loggedIn,
               );
-
+                const fcmUnsub = useFCM().deleteFcmToken();
+                setIsFCM(false);
               setuserdetails();
             } catch (err) {
               console.log(err);

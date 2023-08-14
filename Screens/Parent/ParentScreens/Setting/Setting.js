@@ -127,7 +127,34 @@ const Setting = ({navigation}) => {
           </TouchableOpacity>
         </TouchableOpacity>
       </View>
-
+      <View>
+        {/* Email */}
+        <TouchableOpacity
+          style={styles.details}
+          onPress={() => {
+            navigation.navigate('ProvideFeedback');
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.iconView}>
+              <MaterialCommunityIcons
+                name={'audio-input-xlr'}
+                size={22}
+                color={Font.white}
+              />
+            </View>
+            <View style={{justifyContent: 'center'}}>
+              <Text style={Commonstyles.TextWhiteCalender}>Provide feedback</Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={{justifyContent: 'center'}}
+            onPress={() => {
+              navigation.navigate('ProvideFeedback');
+            }}>
+            <AntDesign name={'right'} size={20} color={Font.white} />
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </View>      
       {/* Security details */}
 
       <View style={styles.headingStyle}>

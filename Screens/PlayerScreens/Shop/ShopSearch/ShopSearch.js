@@ -127,6 +127,12 @@ const ShopSearch = ({navigation}) => {
     }
   };
 
+  const goToProductDetails = (item)=>{
+    navigation.navigate('SingleProduct', {
+      product: item,
+    });
+  }
+
   //Get product from backend
   useEffect(() => {
     getProducts();
@@ -245,6 +251,7 @@ const ShopSearch = ({navigation}) => {
                 renderItem={({item, index}) => {
                   return (
                     <TouchableOpacity
+                      onPress={() => goToProductDetails(item)}
                       style={{
                         borderRadius: 10,
                         margin: 15,
@@ -292,15 +299,6 @@ const ShopSearch = ({navigation}) => {
                               marginBottom: 5,
                             }}></View>
                         </View>
-
-                        <TouchableOpacity
-                          style={{alignSelf: 'flex-end', margin: 5}}>
-                          <Entypo
-                            name={'dots-three-horizontal'}
-                            size={23}
-                            color={Font.white}
-                          />
-                        </TouchableOpacity>
                       </View>
                     </TouchableOpacity>
                   );
