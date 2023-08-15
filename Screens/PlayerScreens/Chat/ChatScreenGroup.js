@@ -201,6 +201,7 @@ const ChatScreenGroup = ({navigation, route}) => {
           <View
             style={{
               flexDirection: 'row',
+               padding: 14,
                backgroundColor: '#212121',
                borderRadius: 10,
                marginBottom: isKeyboardVisible ? 20 : 0
@@ -208,7 +209,13 @@ const ChatScreenGroup = ({navigation, route}) => {
             {/* Sending Chat area */}
 
             <TextInput
-              style={Commonstyles.inputText}
+              multiline= {true}
+                maxLength={300}
+                style={{
+                  backgroundColor: '#212121',
+                  color: '#FFFFFF',
+                  width: "80%" 
+                  }}
               placeholder="Send Message"
               placeholderTextColor={Font.greyText}
               value={

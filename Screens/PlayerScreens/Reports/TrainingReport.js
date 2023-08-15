@@ -29,11 +29,13 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const TrainingReport = ({navigation}) => {
   //Today date and current Month
   let date = new Date();
-
+  let isoDate = date.toISOString();
+  let selectedMonthNumber = date.getMonth();
   let monthName = date.toLocaleDateString('en-US', {month: 'long'});
   monthName = monthName.substring(0, 3);
   var todayDate = moment(date).utc().format('YYYY-MM-DD');
   date = date.toDateString();
+
   console.log(date);
   const {userdetails, setuserdetails} = useContext(CartProvider);
   const [cond, setCondition] = useState(true);
@@ -45,7 +47,7 @@ const TrainingReport = ({navigation}) => {
   const [Index, setIndex] = useState();
 
   const [todayReport, setTodayReport] = useState('false');
-  const [selectedMonth, SetSelectedMonth] = useState(1);
+  const [selectedMonth, SetSelectedMonth] = useState(selectedMonthNumber+1);
   const [selectedMonthName, setSelecetedMonthName] = useState(monthName);
   const [AllAttendanceArray, setAllAttendanceArray] = useState([]);
   const [AttendanceToShow, setAttendanceToShow] = useState([]);
@@ -114,7 +116,7 @@ const TrainingReport = ({navigation}) => {
   const getTodayEvaluation = async () => {
     try {
       const result = await axios.get(
-        `${port.herokuPort}/evaluation/ViewEvaluationsByDateOfPlayer/${userdetails?._id}&${date}`,
+        `${port.herokuPort}/evaluation/ViewEvaluationsByDateOfPlayer/${userdetails?.id}&${isoDate}`,
       );
       if (result.data.data.length != 0) {
         setYourTodayReport(result.data.data);
@@ -196,7 +198,6 @@ const TrainingReport = ({navigation}) => {
   } else {
     return (
       <View>
-        {todayReport === true ? (
           <View>
             <View
               style={{
@@ -297,7 +298,6 @@ const TrainingReport = ({navigation}) => {
               }}
             />
           </View>
-        ) : (
           <View>
             {/* Avg and Highest Score */}
             <View
@@ -598,7 +598,6 @@ const TrainingReport = ({navigation}) => {
               </View>
             </View>
           </View>
-        )}
       </View>
     );
   }

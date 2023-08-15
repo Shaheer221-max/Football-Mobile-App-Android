@@ -66,7 +66,7 @@ const Chat = ({navigation}) => {
         `${port.herokuPort}/conversation/${userdetails?.refOfPlayer}`,
       );
 
-      setConversation(result.data.data.reverse());
+      setConversation(result.data.data);
     } catch (err) {
       console.log(err);
       alert('Error');
@@ -76,7 +76,7 @@ const Chat = ({navigation}) => {
       const response = await axios.get(
         `${port.herokuPort}/groupconversation/GetGroupChat/${userdetails?.refOfPlayer}`,
       );
-      setGroupConversation(response.data.data.reverse());
+      setGroupConversation(response.data.data);
       setCondition(false);
     } catch (err) {
       console.log(err);

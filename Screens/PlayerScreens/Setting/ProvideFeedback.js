@@ -7,6 +7,8 @@ import {
     TextInput,
     Modal,
     Pressable,
+    KeyboardAvoidingView,
+    Keyboard,
   } from 'react-native';
   import React, {useState, useContext, useEffect} from 'react';
   import axios from 'axios';
@@ -25,13 +27,34 @@ import {
   import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
   import AntDesign from 'react-native-vector-icons/AntDesign';
   import Entypo from 'react-native-vector-icons/Entypo';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
   
   const ProvideFeedBackScreen = ({navigation}) => {
     const {userdetails, setuserdetails} = useContext(CartProvider);
     const [cartmodalVisible, setcartModalVisible] = useState(false);
     const [CurrentEmail, setCurrentEmail] = useState();
-  
     const [textToShow, setTextToShow] = useState();
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    useEffect(() => {
+       const keyboardDidShowListener = Keyboard.addListener(
+         'keyboardDidShow',
+         () => {
+           setKeyboardVisible(true); // or some other action
+         }
+       );
+       const keyboardDidHideListener = Keyboard.addListener(
+         'keyboardDidHide',
+         () => {
+           setKeyboardVisible(false); // or some other action
+         }
+       );
+   
+       return () => {
+         keyboardDidHideListener.remove();
+         keyboardDidShowListener.remove();
+       };
+     }, []);
   
     var validationSchema = Yup.object().shape({
         name: Yup.string()
@@ -42,7 +65,8 @@ import {
       number: Yup.number()
         .required('Contact Number is Required'),
     });
-  
+
+
     const sendFeedback = async obj => {
         const userData = {
           content: JSON.stringify(obj),
@@ -66,61 +90,8 @@ import {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: Font.black}}>
         {/* Model to ask for review */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={cartmodalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setcartModalVisible(!cartmodalVisible);
-          }}>
-          <View style={styles.centeredView2}>
-            <View style={styles.modalView3}>
-              <TouchableOpacity
-                onPress={() => {
-                  setcartModalVisible(false);
-                }}
-                style={{
-                  alignItems: 'flex-end',
-                  margin: 10,
-                }}>
-                <Entypo name={'cross'} size={20} color={Font.white} />
-              </TouchableOpacity>
-              <View
-                style={{
-                  marginTop: 15,
-                  alignItems: 'center',
-                }}>
-                <MaterialCommunityIcons
-                  name={'email'}
-                  size={38}
-                  color={'white'}
-                />
-              </View>
-              <View
-                style={{
-                  margin: 20,
-                  marginBottom: 15,
-                  alignItems: 'center',
-                }}>
-                <Text style={Commonstyles.TextWhiteMembers}>{textToShow}</Text>
-              </View>
-  
-              {/* Buttons */}
-              <View style={{margin: 15, alignItems: 'center'}}>
-                <TouchableOpacity
-                  style={styles.ButtonGreen}
-                  onPress={() => {
-                    setcartModalVisible(false);
-                  }}>
-                  <Text style={Commonstyles.TextWhite}>Done</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
-  
         {/* Top bar */}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View
           style={{
             height: 90,
@@ -274,38 +245,53 @@ import {
                   {errors.number}
                 </Text>
               )}
-
-              <View
+                <View
                 style={{
-                  justifyContent: 'center',
-                  margin: 15,
-                  marginBottom: 0,
-                }}>
+                justifyContent: 'center',
+                marginLeft: 15,
+                marginRight: 15,
+                marginBottom: 50,
+              }}
+                >
                 <TextInput
                   name="feedback"
                   style={Commonstyles.inputTextMultiline}
                   placeholder="Feedback"
                   placeholderTextColor={Font.greyText}
                   onChangeText={handleChange('feedback')}
-                  keyboardType="email-address"
                   multiline={true}
                 />
-              </View>
+         
               {errors.feedback && (
                 <Text style={Commonstyles.warningText}>{errors.feedback}</Text>
               )}
-  
+                </View>
+
               {/* Buttons */}
-              <View style={{margin: 15}}>
+              <KeyboardAvoidingView
+              behavior='padding'
+              style={{
+                justifyContent: 'center',
+                marginLeft: 15,
+                marginRight: 15,
+                marginBottom: 50,
+              }}
+                >
                 <TouchableOpacity
-                  style={Commonstyles.ButtonGreen}
+                  style={{
+                    alignItems: 'center',
+                    padding: 23,
+                    backgroundColor: '#1DB954',
+                    borderRadius: 10,
+                  }}
                   onPress={handleSubmit}>
                   <Text style={Commonstyles.TextWhite}>Provide Feedback</Text>
                 </TouchableOpacity>
-              </View>
+              </KeyboardAvoidingView>
             </>
           )}
         </Formik>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     );
   };

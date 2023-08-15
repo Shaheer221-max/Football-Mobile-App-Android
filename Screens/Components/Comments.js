@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import axios from 'axios';
 
 //import font and design
@@ -34,6 +36,28 @@ const Comments = ({navigation, route}) => {
   const [CommentArray, setCommentArray] = useState(route?.params?.Comment);
   const {userdetails, setuserdetails} = useContext(CartProvider);
   const [Comment, setComment] = useState();
+
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+     const keyboardDidShowListener = Keyboard.addListener(
+       'keyboardDidShow',
+       () => {
+         setKeyboardVisible(true); // or some other action
+       }
+     );
+     const keyboardDidHideListener = Keyboard.addListener(
+       'keyboardDidHide',
+       () => {
+         setKeyboardVisible(false); // or some other action
+       }
+     );
+ 
+     return () => {
+       keyboardDidHideListener.remove();
+       keyboardDidShowListener.remove();
+     };
+   }, []);
 
   //Posting Comment
   const postComment = async () => {
@@ -66,7 +90,7 @@ const Comments = ({navigation, route}) => {
       style={{
         flex: 1,
         backgroundColor: Font.black,
-        marginBottom: IsGroup === null ? 70 : 0,
+        marginBottom: IsGroup === null ? 30 : 0,
       }}>
       {/* Top bar */}
       <View
@@ -82,7 +106,7 @@ const Comments = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-            paddingTop: 20,
+            paddingTop: 30,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -104,7 +128,7 @@ const Comments = ({navigation, route}) => {
           style={{
             justifyContent: 'center',
             marginRight: 15,
-            paddingTop: 20,
+            paddingTop: 30,
           }}>
           <TouchableOpacity
             onPress={() => {
@@ -134,18 +158,33 @@ const Comments = ({navigation, route}) => {
             navigation={Nav}
           />
         </View>
-
+        </View>
         {/* Sending Chat area */}
-        <View style={{flex: 0, marginBottom: 4}}>
+        <KeyboardAvoidingView 
+          behavior='padding'
+        style={{
+         justifyContent: 'center',
+         marginLeft: 15,
+         marginRight: 15,
+        marginBottom: 50,
+              }}
+        >
           <View
             style={{
-              justifyContent: 'center',
-              marginLeft: 15,
-              marginRight: 15,
+              flexDirection: 'row',
+               padding: 14,
+               backgroundColor: '#212121',
+               borderRadius: 10,
+               marginBottom: isKeyboardVisible ? 20 : 0
             }}>
             <TextInput
+              multiline= {true}
               name="email"
-              style={Commonstyles.inputText}
+              style={{
+               backgroundColor: '#212121',
+               color: '#FFFFFF',
+               width: "90%" 
+              }}
               placeholder="Write Comment"
               placeholderTextColor={Font.greyText}
               value={Comment}
@@ -160,12 +199,12 @@ const Comments = ({navigation, route}) => {
               style={{
                 position: 'absolute',
                 right: 10,
+                top: 15
               }}>
               <MaterialCommunityIcons name={'send'} size={20} color={'white'} />
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
+        </KeyboardAvoidingView>
     </View>
   );
 };

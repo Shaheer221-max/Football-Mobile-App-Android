@@ -40,7 +40,7 @@ const IndividualGroupDetails = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -51,7 +51,7 @@ const IndividualGroupDetails = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-
+            marginTop: 20,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -75,6 +75,7 @@ const IndividualGroupDetails = ({navigation, route}) => {
         {/* Notification icon */}
         <View
           style={{
+            marginTop: 20,
             justifyContent: 'center',
             marginRight: 15,
           }}>

@@ -113,29 +113,33 @@ const FlatListForComments = ({navigation, CommentArray, setCommentArray}) => {
                       )}
                     </View>
 
-                    <View style={{marginTop: 10}}>
+                    <View style={{marginTop: 10 }}>
                       <Text style={Commonstyles?.TextGreysmall300}>
                         {item?.comment}
                       </Text>
                     </View>
-
-                    <View style={{flexDirection: 'row', marginTop: 5}}>
                       <View
                         style={{
                           marginRight: 15,
                           flexDirection: 'row',
                           alignItems: 'center',
                         }}>
-                        <TouchableOpacity style={{marginRight: 5}}>
+                        <TouchableOpacity style={{
+                          marginRight: 15,
+                          flexDirection: "row",
+                          paddingVertical: 5,
+                        
+                        }}>
                           <AntDesign
+                           style={{marginRight: 5, alignItems: 'center'}}
                             name={'hearto'}
                             size={12}
                             color={Font.white}
                           />
+                        <Text style={Commonstyles?.TextWhite12}>Like</Text>
                         </TouchableOpacity>
 
-                        <Text style={Commonstyles?.TextWhite12}>Like</Text>
-                      </View>
+
                       <View
                         style={{
                           marginRight: 15,
@@ -143,17 +147,22 @@ const FlatListForComments = ({navigation, CommentArray, setCommentArray}) => {
                         <View 
                         style={{flexDirection: 'row', alignItems: 'center'}}
                         >
-                          <Entypo
+                        <TouchableOpacity
+                          style={{ flexDirection: "row", paddingVertical: 5}}
                           onPress={() => {
                             setIndex(index);
                             setIsOpen(!isopen);
                           }}
-                          style={{flexDirection: 'row',marginRight: 5, alignItems: 'center'}}
+                        >
+                        <Entypo
+                          style={{marginRight: 5, alignItems: 'center'}}
                             name={'reply'}
                             size={12}
                             color={Font.white}
                           />
                           <Text style={Commonstyles?.TextWhite12}>Reply</Text>
+                        </TouchableOpacity>
+
                           </View>
                       </View>
                       <View

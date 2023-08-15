@@ -33,6 +33,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Reports = ({navigation}) => {
   //get current date
   var date = new Date();
+  let selectedMonthNumber = date.getMonth();
   let monthName = date.toLocaleDateString('en-US', {month: 'long'});
   monthName = monthName.substring(0, 3);
   date = moment(date).utc().format('YYYY-MM-DD');
@@ -50,7 +51,7 @@ const Reports = ({navigation}) => {
   const [Report, SetReport] = useState('Attendance');
   const [totalPresent, setTotalPresent] = useState(0);
   const [totalAbsent, setTotalAbsent] = useState(0);
-  const [selectedMonth, SetSelectedMonth] = useState(1);
+  const [selectedMonth, SetSelectedMonth] = useState(selectedMonthNumber+1);
   const [selectedMonthName, setSelecetedMonthName] = useState(monthName);
   const [AllAttendanceArray, setAllAttendanceArray] = useState([]);
   const [AttendanceToShow, setAttendanceToShow] = useState([]);

@@ -53,7 +53,7 @@ const GroupMessage = ({message}) => {
   
   return (
     <View style={{marginTop: 10}}>
-      {message?.sender == userdetails?._id ? (
+      {message?.sender.id == userdetails?._id ? (
         <View
           style={{
             alignItems: 'flex-end',

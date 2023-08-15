@@ -488,8 +488,8 @@ const FlatListForFeed = ({
                     }}
                     style={{
                       width: '100%',
-                      height: 207,
-
+                      height: 300,
+                      resizeMode: "cover",
                       borderRadius: 8,
                     }}
                   />

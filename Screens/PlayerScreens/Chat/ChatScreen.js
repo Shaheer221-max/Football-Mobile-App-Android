@@ -10,7 +10,8 @@ import {
   ActivityIndicator,
   FlatList,
   KeyboardAvoidingView,
-  Keyboard
+  Keyboard,
+  Platform
 } from 'react-native';
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import axios from 'axios';
@@ -49,7 +50,7 @@ const ChatScreen = ({navigation, route}) => {
   const [condition2, setcondition2] = useState(true);
   const [image, setImage] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-
+  
  useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -297,16 +298,18 @@ const ChatScreen = ({navigation, route}) => {
               {/* Sending Chat area */}
               <View style={{
                flexDirection: 'row',
-               padding: 18,
+               padding: 14,
                backgroundColor: '#212121',
                borderRadius: 10,
                marginBottom: isKeyboardVisible ? 20 : 0
               }}>
               <TextInput
+                multiline= {Platform.OS == "ios" ? true : false}
+                maxLength={300}
                 style={{
                   backgroundColor: '#212121',
                   color: '#FFFFFF',
-                  width: "60%" 
+                  width: "80%" 
                   }}
                 placeholder="Send Message"
                 placeholderTextColor={Font.greyText}

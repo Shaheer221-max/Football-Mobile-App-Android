@@ -15,7 +15,7 @@ const Commonstyles = StyleSheet.create({
     paddingTop: 10
   },
   inputTextMultiline: {
-    minHeight: 200, 
+    minHeight: 150,
     backgroundColor: '#212121',
     color: '#FFFFFF',
     borderRadius: 10,
@@ -349,7 +349,6 @@ const Commonstyles = StyleSheet.create({
   },
   ButtonGreen: {
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 23,
     backgroundColor: '#1DB954',
     borderRadius: 10,

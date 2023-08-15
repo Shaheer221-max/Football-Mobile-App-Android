@@ -35,6 +35,13 @@ const FlatListForChat = ({ChatListArray, navigation, OnlyView}) => {
               receiverUser = data;
             }
           });
+
+          if(item && item.lastMessage.length > 5){
+            if(item.lastMessage.substring(0,4) === "http"){
+              item.lastMessage = "Sent an image"
+            }
+          }
+          
           return (
             <TouchableOpacity
               onPress={() => {

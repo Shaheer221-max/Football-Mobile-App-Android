@@ -139,6 +139,7 @@ const GroupAddPost = ({navigation, route}) => {
       })
         .then(response => {
           alert('Post added succesfully');
+          navigation.goBack();
         })
         .catch(err => {
           console.log(err);
@@ -150,7 +151,7 @@ const GroupAddPost = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -161,7 +162,7 @@ const GroupAddPost = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-
+            paddingTop: 20,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -189,6 +190,7 @@ const GroupAddPost = ({navigation, route}) => {
             style={{
               width: 76,
               height: 32,
+              marginTop: 20,
               backgroundColor: hide ? Font.greyText : Font.green,
               borderRadius: 3,
               alignItems: 'center',

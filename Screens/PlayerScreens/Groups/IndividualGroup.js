@@ -52,7 +52,6 @@ const IndividualGroup = ({navigation, route}) => {
       const result = await axios.get(
         `${port.herokuPort}/newsfeed/GetGroupNewsFeed/${GroupArray?._id}`,
       );
-
       setFeedArrayFromBackend(result.data.data);
 
       setCondition(false);
@@ -71,7 +70,7 @@ const IndividualGroup = ({navigation, route}) => {
       {/* Top bar */}
       <View
         style={{
-          height: 90,
+          height: 120,
           borderBottomWidth: 0.5,
           borderColor: Font.greyText,
           flexDirection: 'row',
@@ -82,7 +81,7 @@ const IndividualGroup = ({navigation, route}) => {
         <View
           style={{
             flexDirection: 'row',
-
+            marginTop: 20,
             alignItems: 'center',
             marginLeft: 15,
           }}>
@@ -92,6 +91,7 @@ const IndividualGroup = ({navigation, route}) => {
               navigation.openDrawer();
             }}>
             <Ionicons
+              
               name={'reorder-three-sharp'}
               size={32}
               color={Font.green}
@@ -110,6 +110,7 @@ const IndividualGroup = ({navigation, route}) => {
           style={{
             justifyContent: 'center',
             marginRight: 15,
+           marginTop: 20
           }}>
           <TouchableOpacity
             onPress={() => {

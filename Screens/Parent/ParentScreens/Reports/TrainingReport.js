@@ -29,7 +29,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const TrainingReport = ({navigation}) => {
   //Today date and current Month
   let date = new Date();
-
+  let isoDate = date.toISOString();
+  let selectedMonthNumber = date.getMonth();
   let monthName = date.toLocaleDateString('en-US', {month: 'long'});
   monthName = monthName.substring(0, 3);
 
@@ -44,9 +45,8 @@ const TrainingReport = ({navigation}) => {
   const [MentalCond, setMentalCond] = useState(false);
   const [isopen, setIsOpen] = useState(false);
   const [Index, setIndex] = useState();
-
   const [todayReport, setTodayReport] = useState('false');
-  const [selectedMonth, SetSelectedMonth] = useState(1);
+  const [selectedMonth, SetSelectedMonth] = useState(selectedMonthNumber+1);
   const [selectedMonthName, setSelecetedMonthName] = useState(monthName);
   const [AllAttendanceArray, setAllAttendanceArray] = useState([]);
   const [AttendanceToShow, setAttendanceToShow] = useState([]);
@@ -71,7 +71,7 @@ const TrainingReport = ({navigation}) => {
   const getTodayEvaluation = async () => {
     try {
       const result = await axios.get(
-        `${port.herokuPort}/evaluation/ViewEvaluationsByDateOfPlayer/${userdetails?.refOfPlayer}&${date}`,
+        `${port.herokuPort}/evaluation/ViewEvaluationsByDateOfPlayer/${userdetails?.refOfPlayer}&${isoDate}`,
       );
 
       if (result.data.data.length != 0) {
@@ -154,7 +154,6 @@ const TrainingReport = ({navigation}) => {
   } else {
     return (
       <View>
-        {todayReport === true ? (
           <View>
             <View
               style={{
@@ -255,7 +254,6 @@ const TrainingReport = ({navigation}) => {
               }}
             />
           </View>
-        ) : (
           <View>
             {/* Avg and Highest Score */}
             <View
@@ -555,7 +553,6 @@ const TrainingReport = ({navigation}) => {
               </View>
             </View>
           </View>
-        )}
       </View>
     );
   }
